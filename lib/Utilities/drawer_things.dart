@@ -1,0 +1,116 @@
+import 'package:flutter/material.dart';
+import 'package:talkhost/BLoCandLogic/Authentication/auth_state.dart';
+import 'package:talkhost/Utilities/debuggin_handler.dart';
+import 'package:talkhost/Utilities/decorations.dart';
+import 'package:talkhost/Utilities/strings.dart';
+import 'package:talkhost/Utilities/theme.dart';
+
+import 'buttons.dart';
+
+class DrawerThings extends StatelessWidget {
+  final double width;
+  final double height;
+  final Function onPressedExit;
+
+  const DrawerThings(
+      {Key? key,
+      required this.height,
+      required this.width,
+      required this.onPressedExit})
+      : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    if (signInDebuggingEnabled) {
+      Future.delayed(Duration.zero).then((value) {
+        if (AuthState.user == null) {
+          AuthState state = AuthState();
+          state.logout();
+        }
+      });
+    }
+
+    return Container(
+      color: ThemeD.primaryColor,
+      width: width,
+      height: height,
+      child: Column(
+        children: [
+          Stack(
+            children: [
+              Image.asset(
+                imageTalkHostDrawerBackgroundKey,
+              ),
+              Positioned(
+                right: 10,
+                top: 10,
+                child: mouseButton(
+                  child: const CircleAvatar(
+                    radius: 25,
+                    child: Icon(
+                      Icons.exit_to_app,
+                      size: 30,
+                      color: Colors.white,
+                    ),
+                  ),
+                  onPressed: onPressedExit,
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Center(
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      CircleAvatar(
+                        radius: 35,
+                        backgroundImage: NetworkImage(
+                          AuthState.userProfilePic ?? defaultUserProfileImage,
+                        ),
+                      ),
+                      Text(
+                        AuthState.userName ?? "Error in name",
+                        style: drawerUserInfoTextDecoration(),
+                      ),
+                      Text(
+                        AuthState.userEmail ?? "Error in Email",
+                        style: drawerUserInfoTextDecoration(),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              Positioned(
+                bottom: 0,
+                child: Container(
+                  width: width,
+                  height: 10,
+                  decoration: BoxDecoration(
+                    color: ThemeD.primaryColor,
+                    borderRadius: const BorderRadius.only(
+                      topLeft: Radius.circular(20),
+                      topRight: Radius.circular(20),
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
+          Expanded(
+            child: SingleChildScrollView(
+              scrollDirection: Axis.vertical,
+              // child: Column(
+              //
+              // ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
