@@ -10,6 +10,6 @@ class ContactUsPage extends StatefulWidget {
 class _ContactUsPageState extends State<ContactUsPage> {
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return const Text("Contact us page coming soon....");
   }
 }

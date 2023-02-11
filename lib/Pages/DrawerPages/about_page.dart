@@ -10,6 +10,6 @@ class AboutPage extends StatefulWidget {
 class _AboutPageState extends State<AboutPage> {
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return const Text("About page coming soon....");
   }
 }

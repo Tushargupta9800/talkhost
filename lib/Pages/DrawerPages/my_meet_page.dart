@@ -10,6 +10,6 @@ class MyMeetPage extends StatefulWidget {
 class _MyMeetPageState extends State<MyMeetPage> {
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return const Text("My hosted meet page coming soon....");
   }
 }

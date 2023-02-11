@@ -10,6 +10,6 @@ class SearchPersonPage extends StatefulWidget {
 class _SearchPersonPageState extends State<SearchPersonPage> {
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return const Text("Search person page coming soon....");
   }
 }

@@ -1,8 +1,10 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:talkhost/BLoCandLogic/Authentication/auth_state.dart';
 import 'package:talkhost/BLoCandLogic/Firestore/firestore_user.dart';
+import 'package:talkhost/BLoCandLogic/get_bloc.dart';
 import 'package:talkhost/Utilities/debuggin_handler.dart';
 import 'package:talkhost/Utilities/decorations.dart';
 import 'package:talkhost/Utilities/strings.dart';
@@ -23,7 +25,10 @@ class DrawerThings extends StatelessWidget {
       required this.onPressedExit})
       : super(key: key);
 
-  Widget displayTab({required String title, required Icon icon}) {
+  Widget displayTab(
+      {required String title,
+      required Icon icon,
+      required BuildContext context}) {
     return Column(
       children: [
         MouseButtonSTF(
@@ -48,7 +53,7 @@ class DrawerThings extends StatelessWidget {
             ),
           ),
           onPressed: () {
-            log("Clicking: " + title);
+            getDrawerPageCubit(context: context).changePage(title);
           },
         ),
         const Divider(
@@ -154,15 +159,23 @@ class DrawerThings extends StatelessWidget {
                       children: [
                         Column(
                           children: normalUserDrawer.entries
-                              .map((entry) => displayTab(title: entry.key, icon: entry.value))
+                              .map((entry) => displayTab(
+                                    title: entry.key,
+                                    icon: entry.value,
+                                    context: context,
+                                  ))
                               .toList(),
                         ),
                         (User.status == "host")
                             ? Column(
-                              children: hostDrawer.entries
-                                  .map((entry) => displayTab(title: entry.key, icon: entry.value))
-                                  .toList(),
-                            )
+                                children: hostDrawer.entries
+                                    .map((entry) => displayTab(
+                                          title: entry.key,
+                                          icon: entry.value,
+                                          context: context,
+                                        ))
+                                    .toList(),
+                              )
                             : Container(),
                       ],
                     ),

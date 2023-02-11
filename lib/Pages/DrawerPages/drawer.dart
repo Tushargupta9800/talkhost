@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:talkhost/BLoCandLogic/Authentication/auth_state.dart';
+import 'package:talkhost/BLoCandLogic/DrawerPagesLogic/drawer_cubit.dart';
+import 'package:talkhost/BLoCandLogic/get_bloc.dart';
 import 'package:talkhost/Utilities/drawer_things.dart';
 
 import '../OnBoardingPages/on_boarding_page.dart';
@@ -16,31 +19,36 @@ class DrawerPage extends StatefulWidget {
 class _DrawerPageState extends State<DrawerPage> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: SizedBox(
-        width: MediaQuery.of(context).size.width,
-        child: Row(
-          children: [
-            DrawerThings(
-              height: MediaQuery.of(context).size.height,
-              width: MediaQuery.of(context).size.width / 5,
-              onPressedExit: (){
-                AuthState state = AuthState();
-                state.logout();
-                Navigator.of(context).popAndPushNamed(
-                  OnBoardingPage.routeName,
-                );
-              },
+    return BlocBuilder<DrawerCubit, DrawerState>(
+      builder: (context, snapshot){
+        return Scaffold(
+          body: SizedBox(
+            width: MediaQuery.of(context).size.width,
+            child: Row(
+              children: [
+                DrawerThings(
+                  height: MediaQuery.of(context).size.height,
+                  width: MediaQuery.of(context).size.width / 5,
+                  onPressedExit: () {
+                    AuthState state = AuthState();
+                    state.logout();
+                    Navigator.of(context).popAndPushNamed(
+                      OnBoardingPage.routeName,
+                    );
+                  },
+                ),
+                Container(
+                  height: MediaQuery.of(context).size.height,
+                  width: 4 * MediaQuery.of(context).size.width / 5,
+                  color: Colors.white,
+                  child:
+                  getDrawerPageState(context: context).drawerPageBodyOption(),
+                ),
+              ],
             ),
-            Container(
-              height: MediaQuery.of(context).size.height,
-              width: 4 * MediaQuery.of(context).size.width / 5,
-              color: Colors.blue,
-
-            ),
-          ],
-        ),
-      ),
+          ),
+        );
+      }
     );
   }
 }

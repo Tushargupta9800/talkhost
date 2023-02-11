@@ -10,6 +10,6 @@ class ConferencesPage extends StatefulWidget {
 class _ConferencesPageState extends State<ConferencesPage> {
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return const Text("Conferences page coming soon....");
   }
 }
