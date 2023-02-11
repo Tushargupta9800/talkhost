@@ -16,8 +16,8 @@ Future createUserInFirestore({required String? email}) async {
   if(!docExist.exists) {
     User.email = email!;
     log("creating the user in firestore with email");
-    log(email!);
-    log(User.email!);
+    log(email);
+    log(User.email);
     log("************");
     await docUser.set(User.toJson());
   }

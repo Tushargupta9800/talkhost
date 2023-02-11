@@ -3,16 +3,12 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:talkhost/Utilities/debuggin_handler.dart';
 import 'package:talkhost/Utilities/strings.dart';
-import 'package:talkhost/models/User.dart' as model_user;
-
+import '../../models/User.dart' as model;
 import '../Firestore/firestore_user.dart';
 
 class AuthState {
   static User? user;
   static String? userEmail;
-  // static String? userPassword;
-  // static String? userProfilePic;
-  // static String? userName;
   static String errorString = "Some Error has been occurred please try again";
 
   Future<bool> isUserSignedIn() async {
@@ -157,6 +153,11 @@ class AuthState {
     FirebaseAuth auth = FirebaseAuth.instance;
     auth.signOut();
     userEmail = user = null;
+    model.User.status = "user";
+    model.User.email = "";
+    model.User.name = "";
+    model.User.phoneNumber = "";
+    model.User.profilePic = defaultUserProfileImage;
     errorString = defaultErrorLine;
   }
 
