@@ -8,6 +8,7 @@ String drawerPageSearchPersonKey = "Search Person";
 String drawerPageAboutKey = "About";
 String drawerPageCreateMeetKey = "Create Meet";
 String drawerPageMyHostedMeetKey = "My Hosted Meet";
+String drawerEditPageKey = "Edit Page";
 
 Map<String, Icon> normalUserDrawer = {
   drawerPageDashBoardKey: const Icon(

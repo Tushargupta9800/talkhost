@@ -117,10 +117,19 @@ class DrawerThings extends StatelessWidget {
                             const SizedBox(
                               height: 10,
                             ),
-                            CircleAvatar(
-                              radius: 35,
-                              backgroundImage: NetworkImage(
-                                User.profilePic,
+                            mouseButton(
+                              onPressed: () {
+                                getDrawerPageCubit(
+                                  context: context,
+                                ).changePage(
+                                  drawerEditPageKey,
+                                );
+                              },
+                              child: CircleAvatar(
+                                radius: 35,
+                                backgroundImage: NetworkImage(
+                                  User.profilePic,
+                                ),
                               ),
                             ),
                             Text(
@@ -156,26 +165,30 @@ class DrawerThings extends StatelessWidget {
                     scrollDirection: Axis.vertical,
                     child: Column(
                       children: [
-                        Column(
-                          children: normalUserDrawer.entries
-                              .map((entry) => displayTab(
-                                    title: entry.key,
-                                    icon: entry.value,
-                                    context: context,
-                                  ))
-                              .toList(),
-                        ),
                         (User.status == "host")
                             ? Column(
                                 children: hostDrawer.entries
-                                    .map((entry) => displayTab(
-                                          title: entry.key,
-                                          icon: entry.value,
-                                          context: context,
-                                        ))
+                                    .map(
+                                      (entry) => displayTab(
+                                        title: entry.key,
+                                        icon: entry.value,
+                                        context: context,
+                                      ),
+                                    )
                                     .toList(),
                               )
                             : Container(),
+                        Column(
+                          children: normalUserDrawer.entries
+                              .map(
+                                (entry) => displayTab(
+                                  title: entry.key,
+                                  icon: entry.value,
+                                  context: context,
+                                ),
+                              )
+                              .toList(),
+                        ),
                       ],
                     ),
                   ),

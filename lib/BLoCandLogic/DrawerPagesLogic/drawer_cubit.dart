@@ -4,6 +4,7 @@ import 'package:talkhost/Pages/DrawerPages/about_page.dart';
 import 'package:talkhost/Pages/DrawerPages/conferences_page.dart';
 import 'package:talkhost/Pages/DrawerPages/create_meet_page.dart';
 import 'package:talkhost/Pages/DrawerPages/dashboard_page.dart';
+import 'package:talkhost/Pages/DrawerPages/edit_profile.dart';
 import 'package:talkhost/Pages/DrawerPages/message_page.dart';
 import 'package:talkhost/Pages/DrawerPages/my_meet_page.dart';
 import 'package:talkhost/Pages/DrawerPages/search_person_page.dart';

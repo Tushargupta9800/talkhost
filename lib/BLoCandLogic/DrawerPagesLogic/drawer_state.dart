@@ -30,6 +30,9 @@ class DrawerState{
     else if(_openedPageKey == drawerPageMyHostedMeetKey){
       return const MyMeetPage();
     }
+    else if(_openedPageKey == drawerEditPageKey){
+      return const EditProfile();
+    }
     return const DashBoardPage();
   }
 
