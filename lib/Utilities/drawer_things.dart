@@ -1,9 +1,13 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:talkhost/BLoCandLogic/Authentication/auth_state.dart';
+import 'package:talkhost/BLoCandLogic/Firestore/firestore_user.dart';
 import 'package:talkhost/Utilities/debuggin_handler.dart';
 import 'package:talkhost/Utilities/decorations.dart';
 import 'package:talkhost/Utilities/strings.dart';
 import 'package:talkhost/Utilities/theme.dart';
+import 'package:talkhost/models/User.dart';
 
 import 'buttons.dart';
 
@@ -19,6 +23,41 @@ class DrawerThings extends StatelessWidget {
       required this.onPressedExit})
       : super(key: key);
 
+  Widget displayTab({required String title, required Icon icon}) {
+    return Column(
+      children: [
+        MouseButtonSTF(
+          child: Container(
+            width: double.infinity,
+            padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+            child: Row(
+              children: [
+                Container(
+                  padding: const EdgeInsets.symmetric(horizontal: 10),
+                  child: icon,
+                ),
+                Text(
+                  title,
+                  style: const TextStyle(
+                    fontSize: 20,
+                    color: Colors.white,
+                    fontWeight: FontWeight.w800,
+                  ),
+                ),
+              ],
+            ),
+          ),
+          onPressed: () {
+            log("Clicking: " + title);
+          },
+        ),
+        const Divider(
+          color: Colors.black,
+        ),
+      ],
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     if (signInDebuggingEnabled) {
@@ -30,87 +69,108 @@ class DrawerThings extends StatelessWidget {
       });
     }
 
-    return Container(
-      color: ThemeD.primaryColor,
-      width: width,
-      height: height,
-      child: Column(
-        children: [
-          Stack(
-            children: [
-              Image.asset(
-                imageTalkHostDrawerBackgroundKey,
-              ),
-              Positioned(
-                right: 10,
-                top: 10,
-                child: mouseButton(
-                  child: const CircleAvatar(
-                    radius: 25,
-                    child: Icon(
-                      Icons.exit_to_app,
-                      size: 30,
-                      color: Colors.white,
+    return StreamBuilder<User>(
+        stream: readUser(AuthState.userEmail),
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
+            log(User.name.toString());
+            log(User.email.toString());
+          }
+          return Container(
+            color: ThemeD.primaryColor,
+            width: width,
+            height: height,
+            child: Column(
+              children: [
+                Stack(
+                  children: [
+                    Image.asset(
+                      imageTalkHostDrawerBackgroundKey,
                     ),
-                  ),
-                  onPressed: onPressedExit,
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Center(
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      const SizedBox(
-                        height: 10,
+                    Positioned(
+                      right: 10,
+                      top: 10,
+                      child: mouseButton(
+                        child: const CircleAvatar(
+                          radius: 25,
+                          child: Icon(
+                            Icons.exit_to_app,
+                            size: 30,
+                            color: Colors.white,
+                          ),
+                        ),
+                        onPressed: onPressedExit,
                       ),
-                      CircleAvatar(
-                        radius: 35,
-                        backgroundImage: NetworkImage(
-                          AuthState.userProfilePic ?? defaultUserProfileImage,
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Center(
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            const SizedBox(
+                              height: 10,
+                            ),
+                            CircleAvatar(
+                              radius: 35,
+                              backgroundImage: NetworkImage(
+                                User.profilePic,
+                              ),
+                            ),
+                            Text(
+                              User.name,
+                              style: drawerUserInfoTextDecoration(),
+                            ),
+                            Text(
+                              User.email,
+                              style: drawerUserInfoTextDecoration(),
+                            ),
+                          ],
                         ),
                       ),
-                      Text(
-                        AuthState.userName ?? "Error in name",
-                        style: drawerUserInfoTextDecoration(),
+                    ),
+                    Positioned(
+                      bottom: 0,
+                      child: Container(
+                        width: width,
+                        height: 10,
+                        decoration: BoxDecoration(
+                          color: ThemeD.primaryColor,
+                          borderRadius: const BorderRadius.only(
+                            topLeft: Radius.circular(20),
+                            topRight: Radius.circular(20),
+                          ),
+                        ),
                       ),
-                      Text(
-                        AuthState.userEmail ?? "Error in Email",
-                        style: drawerUserInfoTextDecoration(),
-                      ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
-              ),
-              Positioned(
-                bottom: 0,
-                child: Container(
-                  width: width,
-                  height: 10,
-                  decoration: BoxDecoration(
-                    color: ThemeD.primaryColor,
-                    borderRadius: const BorderRadius.only(
-                      topLeft: Radius.circular(20),
-                      topRight: Radius.circular(20),
+                Expanded(
+                  child: SingleChildScrollView(
+                    scrollDirection: Axis.vertical,
+                    child: Column(
+                      children: [
+                        Column(
+                          children: normalUserDrawer.entries
+                              .map((entry) => displayTab(title: entry.key, icon: entry.value))
+                              .toList(),
+                        ),
+                        (User.status == "host")
+                            ? Column(
+                              children: hostDrawer.entries
+                                  .map((entry) => displayTab(title: entry.key, icon: entry.value))
+                                  .toList(),
+                            )
+                            : Container(),
+                      ],
                     ),
                   ),
                 ),
-              ),
-            ],
-          ),
-          Expanded(
-            child: SingleChildScrollView(
-              scrollDirection: Axis.vertical,
-              // child: Column(
-              //
-              // ),
+              ],
             ),
-          ),
-        ],
-      ),
-    );
+          );
+        });
   }
 }

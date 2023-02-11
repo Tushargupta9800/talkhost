@@ -3,13 +3,16 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:talkhost/Utilities/debuggin_handler.dart';
 import 'package:talkhost/Utilities/strings.dart';
+import 'package:talkhost/models/User.dart' as model_user;
+
+import '../Firestore/firestore_user.dart';
 
 class AuthState {
   static User? user;
   static String? userEmail;
-  static String? userPassword;
-  static String? userProfilePic;
-  static String? userName;
+  // static String? userPassword;
+  // static String? userProfilePic;
+  // static String? userName;
   static String errorString = "Some Error has been occurred please try again";
 
   Future<bool> isUserSignedIn() async {
@@ -23,11 +26,7 @@ class AuthState {
     user = auth.currentUser;
 
     if (user == null) return false;
-
-    userEmail = user!.email;
-    userProfilePic = user!.photoURL;
-    userName = user!.displayName;
-
+    createUserInFirestore(email: userEmail);
     return true;
   }
 
@@ -66,8 +65,7 @@ class AuthState {
 
     if (user != null) {
       userEmail = user!.email!;
-      userName = user!.displayName;
-      userProfilePic = user!.photoURL!;
+      createUserInFirestore(email: userEmail);
       log(user!.email.toString());
       log("User Signed in success");
     } else {
@@ -104,11 +102,8 @@ class AuthState {
     }
 
     if (user != null) {
-      userPassword = passcode;
       userEmail = user!.email!;
-      userName = user!.displayName;
-      userProfilePic = user!.photoURL!;
-
+      createUserInFirestore(email: userEmail);
       log(user!.email.toString());
       log("User Signed in success");
     } else {
@@ -142,10 +137,8 @@ class AuthState {
     }
 
     if (user != null) {
-      userPassword = passcode;
       userEmail = user!.email!;
-      userName = user!.displayName;
-      userProfilePic = user!.photoURL!;
+      await createUserInFirestore(email: userEmail);
       log(user!.email.toString());
       log("User Signed in success");
     } else {
@@ -163,7 +156,7 @@ class AuthState {
     await Firebase.initializeApp();
     FirebaseAuth auth = FirebaseAuth.instance;
     auth.signOut();
-    userEmail = userPassword = userProfilePic = userName = null;
+    userEmail = user = null;
     errorString = defaultErrorLine;
   }
 
@@ -189,8 +182,6 @@ class AuthState {
       log(e.toString());
       return false;
     }
-
-    userPassword = passcode;
 
     return true;
   }

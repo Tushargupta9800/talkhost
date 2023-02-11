@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:talkhost/Utilities/theme.dart';
 
-Widget pushButton({required String title, required Function onPressed}){
+Widget pushButton({required String title, required Function onPressed}) {
   return Container(
     decoration: BoxDecoration(
       color: Colors.white,
@@ -14,7 +15,7 @@ Widget pushButton({required String title, required Function onPressed}){
       ],
     ),
     child: ElevatedButton(
-      onPressed: ()=> onPressed(),
+      onPressed: () => onPressed(),
       style: ElevatedButton.styleFrom(
         backgroundColor: Colors.purple,
         shape: RoundedRectangleBorder(
@@ -32,11 +33,51 @@ Widget pushButton({required String title, required Function onPressed}){
   );
 }
 
-Widget mouseButton({required Widget child, required Function onPressed}){
+class MouseButtonSTF extends StatefulWidget {
+  final Widget child;
+  final Function onPressed;
+
+  const MouseButtonSTF({Key? key, required this.child, required this.onPressed})
+      : super(key: key);
+
+  @override
+  State<MouseButtonSTF> createState() => _MouseButtonSTFState();
+}
+
+class _MouseButtonSTFState extends State<MouseButtonSTF> {
+
+  Color buttonColor = ThemeD.primaryColor;
+
+  @override
+  Widget build(BuildContext context) {
+    return MouseRegion(
+      onHover: (event) {
+        setState(() {
+          buttonColor = Colors.purpleAccent;
+        });
+      },
+      onExit: (event){
+        setState(() {
+          buttonColor = ThemeD.primaryColor;
+        });
+      },
+      cursor: SystemMouseCursors.click,
+      child: GestureDetector(
+        onTap: () => widget.onPressed(),
+        child: Container(
+          color: buttonColor,
+          child: widget.child,
+        ),
+      ),
+    );
+  }
+}
+
+Widget mouseButton({required Widget child, required Function onPressed}) {
   return MouseRegion(
     cursor: SystemMouseCursors.click,
     child: GestureDetector(
-      onTap: ()=> onPressed(),
+      onTap: () => onPressed(),
       child: child,
     ),
   );
