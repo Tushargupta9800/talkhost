@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:talkhost/BLoCandLogic/DrawerPagesLogic/drawer_cubit.dart';
+import 'package:talkhost/BLoCandLogic/DrawerPagesLogic/edit_profile_cubit.dart';
 import 'package:talkhost/BLoCandLogic/OnBoardingPageLogic/on_boarding_page_cubit.dart';
 import 'package:talkhost/BLoCandLogic/OnBoardingPageLogic/sign_in_page_cubit.dart';
 
@@ -35,4 +36,12 @@ DrawerCubit getDrawerPageCubit({required BuildContext context}){
 
 DrawerState getDrawerPageState({required BuildContext context}){
   return getDrawerPageCubit(context: context).state;
+}
+
+EditProfileCubit getEditProfileCubit({required BuildContext context}){
+  return BlocProvider.of<EditProfileCubit>(context);
+}
+
+EditProfileState getEditProfileState({required BuildContext context}){
+  return getEditProfileCubit(context: context).state;
 }

@@ -3,7 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:talkhost/Utilities/debuggin_handler.dart';
 import 'package:talkhost/Utilities/strings.dart';
-import '../../models/User.dart' as model;
+import '../../models/user.dart' as model;
 import '../Firestore/firestore_user.dart';
 
 class AuthState {

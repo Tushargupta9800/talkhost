@@ -118,11 +118,7 @@ class _SignInPageState extends State<SignInPage> {
 
   @override
   Widget build(BuildContext context) {
-    if(signInDebuggingEnabled) {
-      Future.delayed(Duration.zero).then((value) {
-        getSignInPageCubit(context: context).onPressedLoginButton(context);
-      });
-    }
+
     return BlocBuilder<SignInPageCubit, SignInPageModel>(
         builder: (context, snapshot) {
       return Expanded(

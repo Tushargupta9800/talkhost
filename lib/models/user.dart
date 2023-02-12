@@ -18,7 +18,7 @@ class User {
   static String status = "user";
   static String phoneNumber = "";
   static String address = "";
-  static String bannerPic = "";
+  static String bannerPic = imageTalkHostDrawerBackgroundKey;
 
   static Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};

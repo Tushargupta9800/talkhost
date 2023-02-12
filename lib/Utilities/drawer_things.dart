@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:talkhost/BLoCandLogic/Authentication/auth_state.dart';
 import 'package:talkhost/BLoCandLogic/Firestore/firestore_user.dart';
@@ -8,7 +6,7 @@ import 'package:talkhost/Utilities/debuggin_handler.dart';
 import 'package:talkhost/Utilities/decorations.dart';
 import 'package:talkhost/Utilities/strings.dart';
 import 'package:talkhost/Utilities/theme.dart';
-import 'package:talkhost/models/User.dart';
+import 'package:talkhost/models/user.dart';
 
 import 'buttons.dart';
 
@@ -32,9 +30,10 @@ class DrawerThings extends StatelessWidget {
       children: [
         MouseButtonSTF(
           child: Container(
-            width: double.infinity,
-            padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+            width: MediaQuery.of(context).size.width / 5,
+            padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
             child: Row(
+              mainAxisSize: MainAxisSize.min,
               children: [
                 Container(
                   padding: const EdgeInsets.symmetric(horizontal: 10),
@@ -43,10 +42,12 @@ class DrawerThings extends StatelessWidget {
                 Text(
                   title,
                   style: const TextStyle(
+                    overflow: TextOverflow.ellipsis,
                     fontSize: 20,
                     color: Colors.white,
-                    fontWeight: FontWeight.w800,
+                    fontWeight: FontWeight.w600,
                   ),
+                  maxLines: 1,
                 ),
               ],
             ),
@@ -62,9 +63,21 @@ class DrawerThings extends StatelessWidget {
     );
   }
 
+  Widget display(String title) {
+    return Text(
+      title,
+      style: const TextStyle(
+        fontSize: 16,
+        fontWeight: FontWeight.w600,
+        color: Colors.white,
+        overflow: TextOverflow.ellipsis,
+      ),
+      maxLines: 1,
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
-
     if (signInDebuggingEnabled) {
       Future.delayed(Duration.zero).then((value) {
         if (AuthState.user == null) {
@@ -75,12 +88,9 @@ class DrawerThings extends StatelessWidget {
     }
 
     return StreamBuilder<User>(
-        stream: readUser(AuthState.userEmail),
+        stream: readUser(User.email),
         builder: (context, snapshot) {
-
-          if(!snapshot.hasData){
-
-          }
+          if (!snapshot.hasData) {}
 
           return Container(
             color: ThemeD.primaryColor,
@@ -91,7 +101,9 @@ class DrawerThings extends StatelessWidget {
                 Stack(
                   children: [
                     Image.network(
-                      User.bannerPic
+                      User.bannerPic,
+                      height: 180,
+                      fit: BoxFit.fill,
                     ),
                     Positioned(
                       right: 10,
@@ -134,14 +146,8 @@ class DrawerThings extends StatelessWidget {
                                 ),
                               ),
                             ),
-                            Text(
-                              User.name,
-                              style: drawerUserInfoTextDecoration(),
-                            ),
-                            Text(
-                              User.email,
-                              style: drawerUserInfoTextDecoration(),
-                            ),
+                            display(User.name),
+                            display(User.email),
                           ],
                         ),
                       ),

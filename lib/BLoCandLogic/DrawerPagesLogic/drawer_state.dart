@@ -2,7 +2,7 @@ part of 'drawer_cubit.dart';
 
 class DrawerState{
 
-  static String _openedPageKey = drawerPageDashBoardKey;
+  static String _openedPageKey = drawerEditPageKey;
 
   void changePage(String key){
     _openedPageKey = key;

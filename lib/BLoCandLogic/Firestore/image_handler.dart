@@ -1,5 +1,4 @@
 import 'package:image_picker/image_picker.dart';
-import 'package:talkhost/models/User.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 
 class FirestoreImage {
@@ -9,12 +8,12 @@ class FirestoreImage {
     return pickedFile;
   }
 
-  static Future<String?> uploadImage(String collection) async {
+  static Future<String?> uploadImage({required String collectionWithPath}) async {
     XFile? imageFile = await _getImage();
     String? downloadUrl;
     if (imageFile != null) {
       var reference =
-          FirebaseStorage.instance.ref().child(collection + User.email);
+          FirebaseStorage.instance.ref().child(collectionWithPath);
 
       await reference
           .putData(
