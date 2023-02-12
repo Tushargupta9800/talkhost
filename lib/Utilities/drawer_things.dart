@@ -3,7 +3,6 @@ import 'package:talkhost/BLoCandLogic/Authentication/auth_state.dart';
 import 'package:talkhost/BLoCandLogic/Firestore/firestore_user.dart';
 import 'package:talkhost/BLoCandLogic/get_bloc.dart';
 import 'package:talkhost/Utilities/debuggin_handler.dart';
-import 'package:talkhost/Utilities/decorations.dart';
 import 'package:talkhost/Utilities/strings.dart';
 import 'package:talkhost/Utilities/theme.dart';
 import 'package:talkhost/models/user.dart';

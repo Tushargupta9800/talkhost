@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:talkhost/BLoCandLogic/get_bloc.dart';
@@ -15,6 +17,9 @@ class EditProfile extends StatefulWidget {
 }
 
 class _EditProfileState extends State<EditProfile> {
+  bool visible = true;
+  bool firstTime = true;
+
   @override
   void dispose() {
     getEditProfileState(context: context).addressController.dispose();
@@ -30,6 +35,44 @@ class _EditProfileState extends State<EditProfile> {
         fontSize: 25,
         fontWeight: FontWeight.w600,
         color: Colors.white,
+      ),
+    );
+  }
+
+  Widget editable(
+    String title,
+    TextEditingController controller,
+    String hintText,
+    double width,
+    String value,
+  ) {
+    if (visible == false && firstTime == true) {
+      firstTime = false;
+      getEditProfileState(context: context)
+          .listen(User.name, User.phoneNumber, User.address);
+    }
+
+    return SizedBox(
+      width: width,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(title),
+          (visible)
+              ? Text(
+                  value,
+                  style: const TextStyle(
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                )
+              : TextFormField(
+                  controller: controller,
+                  decoration: InputDecoration(
+                    border: const OutlineInputBorder(),
+                    hintText: hintText,
+                  ),
+                ),
+        ],
       ),
     );
   }
@@ -126,7 +169,71 @@ class _EditProfileState extends State<EditProfile> {
                             ),
                           ),
                         ],
-                      )
+                      ),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      Container(
+                        width: double.infinity,
+                        color: Colors.grey[400],
+                        padding: const EdgeInsets.symmetric(vertical: 5),
+                        child: Row(
+                          children: [
+                            const SizedBox(
+                              width: 10,
+                            ),
+                            const Text(
+                              "Personal Information",
+                              style: TextStyle(
+                                fontSize: 20,
+                              ),
+                            ),
+                            const SizedBox(
+                              width: 10,
+                            ),
+                            mouseButton(
+                              onPressed: () {
+                                setState(() {
+                                  visible = !visible;
+                                });
+                              },
+                              child: const CircleAvatar(
+                                radius: 20,
+                                child: Icon(Icons.edit),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      Wrap(
+                        spacing: 20.0,
+                        children: [
+                          editable(
+                              "Name",
+                              getEditProfileState(context: context)
+                                  .nameController,
+                              "Write your name here",
+                              4 * MediaQuery.of(context).size.width / 12,
+                              User.name),
+                          editable(
+                              "Phone Number",
+                              getEditProfileState(context: context)
+                                  .phoneNumberController,
+                              "Write your phone number here",
+                              4 * MediaQuery.of(context).size.width / 12,
+                              User.phoneNumber),
+                          editable(
+                              "Address",
+                              getEditProfileState(context: context)
+                                  .addressController,
+                              "Write your Address here",
+                              4 * MediaQuery.of(context).size.width / 12,
+                              User.address),
+                        ],
+                      ),
                     ],
                   ),
                 ),
