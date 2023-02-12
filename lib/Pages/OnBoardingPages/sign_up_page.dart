@@ -95,6 +95,13 @@ class _SignUpPageState extends State<SignUpPage> {
   }
 
   @override
+  void dispose() {
+    getSignUpPageModel(context: context).emailController.dispose();
+    getSignUpPageModel(context: context).passwordController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return BlocBuilder<SignUpPageCubit, SignUpPageModel>(
         builder: (context, snapshot) {

@@ -158,6 +158,7 @@ class AuthState {
     model.User.name = "";
     model.User.phoneNumber = "";
     model.User.profilePic = defaultUserProfileImage;
+    model.User.bannerPic = imageTalkHostDrawerBackgroundKey;
     errorString = defaultErrorLine;
   }
 

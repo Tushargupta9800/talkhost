@@ -11,6 +11,9 @@ String drawerPageMyHostedMeetKey = "My Hosted Meet";
 String drawerEditPageKey = "Edit Page";
 String drawerNotificationsPageKey = "Notifications";
 
+String fireStorageUserProfileImagesKey = "profile_images/";
+String fireStorageAgendaImagesKey = "agenda_images/";
+
 Map<String, Icon> normalUserDrawer = {
   drawerPageDashBoardKey: const Icon(
     Icons.dashboard,
@@ -50,6 +53,6 @@ Map<String, Icon> hostDrawer = {
 };
 
 String imageTalkHostDrawerBackgroundKey =
-    "Assets/Images/talkhost_drawer_bk.png";
+    "https://firebasestorage.googleapis.com/v0/b/talkhost-3515b.appspot.com/o/talkhost_drawer_bk.png?alt=media&token=5e2854f2-b31f-4b90-8f20-cfca600ce9a1";
 String defaultUserProfileImage =
-    "https://previews.123rf.com/images/triken/triken1608/triken160800029/61320775-male-avatar-profile-picture-default-user-avatar-guest-avatar-simply-human-head-vector-illustration-i.jpg";
+    "https://firebasestorage.googleapis.com/v0/b/talkhost-3515b.appspot.com/o/default_user_profile.png?alt=media&token=581579d5-e375-425a-b234-5328ceb73d57";

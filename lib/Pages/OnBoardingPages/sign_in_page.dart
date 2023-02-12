@@ -110,6 +110,13 @@ class _SignInPageState extends State<SignInPage> {
   }
 
   @override
+  void dispose() {
+    getSignInPageModel(context: context).passwordController.dispose();
+    getSignInPageModel(context: context).emailController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     if(signInDebuggingEnabled) {
       Future.delayed(Duration.zero).then((value) {

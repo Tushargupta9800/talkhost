@@ -8,6 +8,8 @@ class User {
     profilePic = json['profile_pic'];
     status = json['status'];
     phoneNumber = json['phone_number'];
+    address = json['address'];
+    bannerPic = json['banner_pic'];
   }
 
   static String name = "";
@@ -15,6 +17,8 @@ class User {
   static String profilePic = defaultUserProfileImage;
   static String status = "user";
   static String phoneNumber = "";
+  static String address = "";
+  static String bannerPic = "";
 
   static Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
@@ -23,6 +27,8 @@ class User {
     map['profile_pic'] = profilePic;
     map['status'] = status;
     map['phone_number'] = phoneNumber;
+    map['address'] = address;
+    map['banner_pic'] = bannerPic;
     return map;
   }
 }

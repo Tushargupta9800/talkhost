@@ -53,7 +53,7 @@ class _MouseButtonSTFState extends State<MouseButtonSTF> {
     return MouseRegion(
       onHover: (event) {
         setState(() {
-          buttonColor = Colors.purpleAccent;
+          buttonColor = ThemeD.primaryColorAccent;
         });
       },
       onExit: (event){

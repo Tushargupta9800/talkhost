@@ -64,6 +64,7 @@ class DrawerThings extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
     if (signInDebuggingEnabled) {
       Future.delayed(Duration.zero).then((value) {
         if (AuthState.user == null) {
@@ -89,8 +90,8 @@ class DrawerThings extends StatelessWidget {
               children: [
                 Stack(
                   children: [
-                    Image.asset(
-                      imageTalkHostDrawerBackgroundKey,
+                    Image.network(
+                      User.bannerPic
                     ),
                     Positioned(
                       right: 10,
