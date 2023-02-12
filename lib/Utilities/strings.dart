@@ -9,6 +9,7 @@ String drawerPageAboutKey = "About";
 String drawerPageCreateMeetKey = "Create Meet";
 String drawerPageMyHostedMeetKey = "My Hosted Meet";
 String drawerEditPageKey = "Edit Page";
+String drawerNotificationsPageKey = "Notifications";
 
 Map<String, Icon> normalUserDrawer = {
   drawerPageDashBoardKey: const Icon(
@@ -17,6 +18,10 @@ Map<String, Icon> normalUserDrawer = {
   ),
   drawerPageMessageKey: const Icon(
     Icons.question_answer,
+    color: Colors.white,
+  ),
+  drawerNotificationsPageKey: const Icon(
+    Icons.notifications,
     color: Colors.white,
   ),
   drawerPageConferencesKey: const Icon(

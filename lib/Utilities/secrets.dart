@@ -7,3 +7,6 @@ class Secrets{
   final String appId = "1 =336649479128 =web =6513a950facf3b1474c8ad";
   final String measurementId = "G-PQ6B96M8L1";
 }
+
+String debugUserId = "tushargupta9800@gmail.com";
+String debugUserPassword = "Pass@1234";

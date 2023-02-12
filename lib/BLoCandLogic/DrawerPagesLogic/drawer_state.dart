@@ -33,6 +33,9 @@ class DrawerState{
     else if(_openedPageKey == drawerEditPageKey){
       return const EditProfile();
     }
+    else if(_openedPageKey == drawerNotificationsPageKey){
+      return const NotificationsPage();
+    }
     return const DashBoardPage();
   }
 

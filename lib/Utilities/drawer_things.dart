@@ -76,10 +76,11 @@ class DrawerThings extends StatelessWidget {
     return StreamBuilder<User>(
         stream: readUser(AuthState.userEmail),
         builder: (context, snapshot) {
-          if (snapshot.hasData) {
-            log(User.name.toString());
-            log(User.email.toString());
+
+          if(!snapshot.hasData){
+
           }
+
           return Container(
             color: ThemeD.primaryColor,
             width: width,

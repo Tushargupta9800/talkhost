@@ -10,6 +10,8 @@ import 'package:talkhost/Pages/DrawerPages/my_meet_page.dart';
 import 'package:talkhost/Pages/DrawerPages/search_person_page.dart';
 import 'package:talkhost/Utilities/strings.dart';
 
+import '../../Pages/DrawerPages/notifications_page.dart';
+
 part 'drawer_state.dart';
 
 class DrawerCubit extends Cubit<DrawerState> {

@@ -62,8 +62,8 @@ class SignInPageModel {
     BuildContext context,
   ) async {
     if(signInDebuggingEnabled){
-      emailController.text = "tushargupta9800@gmail.com";
-      passwordController.text = "Password@1234";
+      emailController.text = debugUserId;
+      passwordController.text = debugUserPassword;
     }
     if(!passwordValidate(context)) return false;
     AuthState authState = AuthState();
