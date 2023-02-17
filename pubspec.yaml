@@ -40,7 +40,7 @@ dependencies:
   firebase_core: ^2.4.1
   firebase_auth: ^4.2.5
   google_sign_in: ^5.4.4
-  jitsi_meet: ^4.0.0
+  custom_jitsi_meet: ^4.0.15
   firebase_analytics: ^10.1.0
   cloud_firestore: ^4.3.2
   firebase_storage: ^11.0.11

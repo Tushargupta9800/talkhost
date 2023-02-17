@@ -10,6 +10,8 @@ class User {
     phoneNumber = json['phone_number'];
     address = json['address'];
     bannerPic = json['banner_pic'];
+    occupation = json['occupation'];
+    website = json['website'];
   }
 
   static String name = "";
@@ -19,6 +21,8 @@ class User {
   static String phoneNumber = "";
   static String address = "";
   static String bannerPic = imageTalkHostDrawerBackgroundKey;
+  static String occupation = "";
+  static String website = "";
 
   static Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
@@ -29,6 +33,8 @@ class User {
     map['phone_number'] = phoneNumber;
     map['address'] = address;
     map['banner_pic'] = bannerPic;
+    map['occupation'] = occupation;
+    map['website'] = website;
     return map;
   }
 }

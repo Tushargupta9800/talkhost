@@ -312,7 +312,7 @@ class _EditProfileState extends State<EditProfile> {
                                       );
                                     }
                                     if(User.status != "host"){
-                                      updateUserStatusToHost();
+                                      updateUserParticularInfo(value: "host", key: "status");
                                     }
                                     return const Text("Your Email is Verified");
                                   }

@@ -5,23 +5,30 @@ class EditProfileState {
   final TextEditingController addressController = TextEditingController();
   final TextEditingController phoneNumberController = TextEditingController();
 
-
   void listen(String name, String number, String address) {
-
     nameController.text = name;
     addressController.text = address;
     phoneNumberController.text = number;
 
     nameController.addListener(() {
-      updateUserName(name: nameController.text);
+      updateUserParticularInfo(
+        value: nameController.text,
+        key: "name",
+      );
     });
     addressController.addListener(() {
-      updateUserAddress(address: addressController.text);
+      updateUserParticularInfo(
+        value: addressController.text,
+        key: "address",
+      );
     });
     phoneNumberController.addListener(() {
       if (phoneNumberController.text.isNotEmpty &&
           phoneNumberController.text.length == 10) {
-        updateUserPhoneNumber(number: phoneNumberController.text);
+        updateUserParticularInfo(
+          value: phoneNumberController.text,
+          key: "phone_number",
+        );
       }
     });
   }
@@ -33,8 +40,9 @@ class EditProfileState {
       collectionWithPath: fireStorageUserProfileImagesKey + fileName,
     );
     if (newProfileLink != null) {
-      updateUserProfilePic(
-        fileLink: newProfileLink,
+      updateUserParticularInfo(
+        value: newProfileLink,
+        key: "profile_pic",
       );
     }
   }
@@ -46,8 +54,9 @@ class EditProfileState {
       collectionWithPath: fireStorageUserProfileImagesKey + fileName,
     );
     if (newBannerLink != null) {
-      updateUserBannerPic(
-        fileLink: newBannerLink,
+      updateUserParticularInfo(
+        value: newBannerLink,
+        key: "banner_pic",
       );
     }
   }

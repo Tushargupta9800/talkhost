@@ -3,11 +3,11 @@ import 'package:flutter/material.dart';
 String defaultErrorLine = "Some Error has been occurred please try again";
 String drawerPageDashBoardKey = "DashBoard";
 String drawerPageMessageKey = "Messages";
-String drawerPageConferencesKey = "Conferences";
+String drawerPageConferencesKey = "All Talks";
 String drawerPageSearchPersonKey = "Search Person";
 String drawerPageAboutKey = "About";
-String drawerPageCreateMeetKey = "Create Meet";
-String drawerPageMyHostedMeetKey = "My Hosted Meet";
+String drawerPageCreateMeetKey = "Create Talks";
+String drawerPageMyHostedMeetKey = "My Hosted Talks";
 String drawerEditPageKey = "Edit Page";
 String drawerNotificationsPageKey = "Notifications";
 

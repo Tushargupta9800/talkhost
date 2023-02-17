@@ -23,32 +23,7 @@ Future createUserInFirestore({required String? email}) async {
 
 }
 
-Future updateUserProfilePic({required String fileLink}) async {
+Future updateUserParticularInfo({required String key, required String value}) async {
   final docUser = FirebaseFirestore.instance.collection("users").doc(User.email);
-  await docUser.update({"profile_pic" : fileLink});
-}
-
-Future updateUserName({required String name}) async {
-  final docUser = FirebaseFirestore.instance.collection("users").doc(User.email);
-  await docUser.update({"name" : name});
-}
-
-Future updateUserPhoneNumber({required String number}) async {
-  final docUser = FirebaseFirestore.instance.collection("users").doc(User.email);
-  await docUser.update({"phone_number" : number});
-}
-
-Future updateUserAddress({required String address}) async {
-  final docUser = FirebaseFirestore.instance.collection("users").doc(User.email);
-  await docUser.update({"address" : address});
-}
-
-Future updateUserBannerPic({required String fileLink}) async {
-  final docUser = FirebaseFirestore.instance.collection("users").doc(User.email);
-  await docUser.update({"banner_pic" : fileLink});
-}
-
-Future updateUserStatusToHost() async {
-  final docUser = FirebaseFirestore.instance.collection("users").doc(User.email);
-  await docUser.update({"status": "host"});
+  await docUser.update({key : value});
 }

@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:talkhost/BLoCandLogic/Authentication/auth_state.dart';
@@ -5,6 +7,7 @@ import 'package:talkhost/BLoCandLogic/OnBoardingPageLogic/on_boarding_page_cubit
 import 'package:talkhost/BLoCandLogic/get_bloc.dart';
 import 'package:talkhost/Utilities/decorations.dart';
 import 'package:talkhost/Utilities/loding_screen.dart';
+import 'package:talkhost/models/User.dart';
 
 class OnBoardingPage extends StatefulWidget {
   const OnBoardingPage({Key? key}) : super(key: key);
@@ -79,20 +82,6 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
         ],
       ),
     );
-  }
-
-  void initMethodInvoke() async {
-    if (await AuthState.isUserSignedIn()) {
-      if (mounted) {
-        getOnBoardingPageState(context: context).openDrawer(context);
-      }
-    }
-  }
-
-  @override
-  void initState() {
-    initMethodInvoke();
-    super.initState();
   }
 
   @override
