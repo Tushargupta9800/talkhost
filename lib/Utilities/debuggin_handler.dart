@@ -1,3 +1,3 @@
 bool _overallDebuggingEnabled = true;
-bool signInDebuggingEnabled = true & _overallDebuggingEnabled;
+bool signInDebuggingEnabled = false & _overallDebuggingEnabled;
 bool authStateDebugging = true & _overallDebuggingEnabled;

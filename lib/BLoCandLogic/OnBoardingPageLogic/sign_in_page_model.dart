@@ -33,7 +33,7 @@ class SignInPageModel {
   bool passwordValidate(BuildContext context){
     String validate = passwordChecker(passwordController.text);
     if(validate.isEmpty) return true;
-    showAlertDialogOnAuthentication(context, error: validate);
+    showAlertDialog(context, error: validate);
     return false;
   }
 
@@ -43,10 +43,10 @@ class SignInPageModel {
     bool status = await state.sendPasswordResetEmail(emailController.text);
     getOnBoardingPageBloc(context: context).changeLoadingScreenVisibility();
     if(!status && context.mounted) {
-      showAlertDialogOnAuthentication(context);
+      showAlertDialog(context);
     }
     if(status && context.mounted) {
-      showAlertDialogOnAuthentication(context, error: "Check your inbox", title: "Password change email has been sent.");
+      showAlertDialog(context, error: "Check your inbox", title: "Password change email has been sent.");
     }
   }
 

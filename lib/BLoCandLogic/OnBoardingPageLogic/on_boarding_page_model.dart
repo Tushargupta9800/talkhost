@@ -33,4 +33,11 @@ class OnBoardingPageModel{
     return OnBoardingPageModel();
   }
 
+  void openDrawer(BuildContext context) {
+    Navigator.popAndPushNamed(
+      context,
+      DrawerPage.routeName,
+    );
+  }
+
 }

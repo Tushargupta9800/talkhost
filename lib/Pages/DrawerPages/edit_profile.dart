@@ -2,8 +2,11 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:talkhost/BLoCandLogic/Authentication/auth_state.dart';
 import 'package:talkhost/BLoCandLogic/get_bloc.dart';
+import 'package:talkhost/Utilities/alertbox.dart';
 import 'package:talkhost/Utilities/buttons.dart';
+import 'package:talkhost/Utilities/loding_screen.dart';
 import 'package:talkhost/models/user.dart';
 
 import '../../BLoCandLogic/DrawerPagesLogic/edit_profile_cubit.dart';
@@ -16,9 +19,11 @@ class EditProfile extends StatefulWidget {
   State<EditProfile> createState() => _EditProfileState();
 }
 
+bool visible = true;
+bool firstTime = true;
+bool loading = false;
+
 class _EditProfileState extends State<EditProfile> {
-  bool visible = true;
-  bool firstTime = true;
 
   @override
   void dispose() {
@@ -36,6 +41,49 @@ class _EditProfileState extends State<EditProfile> {
         fontWeight: FontWeight.w600,
         color: Colors.white,
       ),
+    );
+  }
+
+  Widget dividerBanner(String title, Function onTap, bool editVisibility) {
+    return Column(
+      children: [
+        const SizedBox(
+          height: 20,
+        ),
+        Container(
+          width: double.infinity,
+          color: Colors.grey[400],
+          padding: const EdgeInsets.symmetric(vertical: 5),
+          child: Row(
+            children: [
+              const SizedBox(
+                width: 10,
+              ),
+              Text(
+                title,
+                style: const TextStyle(
+                  fontSize: 20,
+                ),
+              ),
+              const SizedBox(
+                width: 10,
+              ),
+              (editVisibility)
+                  ? mouseButton(
+                      onPressed: () => onTap(),
+                      child: const CircleAvatar(
+                        radius: 20,
+                        child: Icon(Icons.edit),
+                      ),
+                    )
+                  : Container(),
+            ],
+          ),
+        ),
+        const SizedBox(
+          height: 20,
+        ),
+      ],
     );
   }
 
@@ -86,65 +134,38 @@ class _EditProfileState extends State<EditProfile> {
           builder: (context, snapshot) {
             if (!snapshot.hasData) {}
 
-            return Scaffold(
-              body: SizedBox(
-                width: 4 * MediaQuery.of(context).size.width / 5,
-                height: MediaQuery.of(context).size.height,
-                child: SingleChildScrollView(
-                  scrollDirection: Axis.vertical,
-                  child: Column(
-                    children: [
-                      Stack(
+            return Stack(
+              children: [
+                Scaffold(
+                  body: Container(
+                    color: Colors.grey[200],
+                    width: 4 * MediaQuery.of(context).size.width / 5,
+                    height: MediaQuery.of(context).size.height,
+                    child: SingleChildScrollView(
+                      scrollDirection: Axis.vertical,
+                      child: Column(
                         children: [
-                          Padding(
-                            padding: const EdgeInsets.only(bottom: 50),
-                            child: Stack(
-                              children: [
-                                Image.network(
-                                  User.bannerPic,
-                                  height: 250,
-                                  width:
-                                      4 * MediaQuery.of(context).size.width / 5,
-                                  fit: BoxFit.fill,
-                                ),
-                                Positioned(
-                                  bottom: 10,
-                                  right: 15,
-                                  child: mouseButton(
-                                    onPressed: () =>
-                                        getEditProfileState(context: context)
-                                            .onClickEditBannerPicButton(
-                                      User.email,
-                                    ),
-                                    child: const CircleAvatar(
-                                      radius: 20,
-                                      child: Icon(Icons.edit),
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                          Positioned(
-                            bottom: 0,
-                            left: 80,
-                            child: Row(
-                              children: [
-                                Stack(
+                          Stack(
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.only(bottom: 45),
+                                child: Stack(
                                   children: [
-                                    CircleAvatar(
-                                      radius: 80,
-                                      backgroundImage: NetworkImage(
-                                        User.profilePic,
-                                      ),
+                                    Image.network(
+                                      User.bannerPic,
+                                      height: 250,
+                                      width: 4 *
+                                          MediaQuery.of(context).size.width /
+                                          5,
+                                      fit: BoxFit.fill,
                                     ),
                                     Positioned(
-                                      bottom: 5,
-                                      right: 5,
+                                      bottom: 10,
+                                      right: 15,
                                       child: mouseButton(
                                         onPressed: () => getEditProfileState(
                                                 context: context)
-                                            .onClickEditProfilePicButton(
+                                            .onClickEditBannerPicButton(
                                           User.email,
                                         ),
                                         child: const CircleAvatar(
@@ -155,89 +176,157 @@ class _EditProfileState extends State<EditProfile> {
                                     ),
                                   ],
                                 ),
-                                const SizedBox(
-                                  width: 30,
-                                ),
-                                Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
+                              ),
+                              Positioned(
+                                bottom: 0,
+                                left: 80,
+                                child: Row(
                                   children: [
-                                    display(User.name),
-                                    display(User.email),
+                                    Stack(
+                                      children: [
+                                        CircleAvatar(
+                                          radius: 80,
+                                          backgroundImage: NetworkImage(
+                                            User.profilePic,
+                                          ),
+                                        ),
+                                        Positioned(
+                                          bottom: 5,
+                                          right: 5,
+                                          child: mouseButton(
+                                            onPressed: () => getEditProfileState(
+                                                    context: context)
+                                                .onClickEditProfilePicButton(
+                                              User.email,
+                                            ),
+                                            child: const CircleAvatar(
+                                              radius: 20,
+                                              child: Icon(Icons.edit),
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                    const SizedBox(
+                                      width: 30,
+                                    ),
+                                    Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        display(User.name),
+                                        display(User.email),
+                                      ],
+                                    )
                                   ],
-                                )
-                              ],
+                                ),
+                              ),
+                            ],
+                          ),
+                          dividerBanner(
+                            "Personal Information",
+                            () {
+                              setState(() {
+                                visible = !visible;
+                              });
+                            },
+                            true,
+                          ),
+                          Wrap(
+                            spacing: 20.0,
+                            children: [
+                              editable(
+                                  "Name",
+                                  getEditProfileState(context: context)
+                                      .nameController,
+                                  "Write your name here",
+                                  4 * MediaQuery.of(context).size.width / 12,
+                                  User.name),
+                              editable(
+                                  "Phone Number",
+                                  getEditProfileState(context: context)
+                                      .phoneNumberController,
+                                  "Write your phone number here",
+                                  4 * MediaQuery.of(context).size.width / 12,
+                                  User.phoneNumber),
+                              editable(
+                                  "Address",
+                                  getEditProfileState(context: context)
+                                      .addressController,
+                                  "Write your Address here",
+                                  4 * MediaQuery.of(context).size.width / 12,
+                                  User.address),
+                            ],
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 40,
+                              vertical: 10,
+                            ),
+                            child: Align(
+                              alignment: Alignment.centerLeft,
+                              child: FutureBuilder(
+                                future: AuthState.isUserEmailVerified(),
+                                builder: (context, snapshot) {
+                                  if (snapshot.connectionState ==
+                                          ConnectionState.waiting ||
+                                      snapshot.hasError) {
+                                    return const CircularProgressIndicator();
+                                  } else {
+                                    if (snapshot.data == false) {
+                                      return Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          dividerBanner(
+                                            "Make me Host",
+                                            () {},
+                                            false,
+                                          ),
+                                          mouseButton(
+                                            child: const Text(
+                                                "Verify Your Email  First"),
+                                            onPressed: () async {
+                                              setState(() {
+                                                loading = true;
+                                              });
+                                              AuthState state = AuthState();
+                                              await state
+                                                  .sendUserVerificationEmail()
+                                                  .then((value) {
+                                                if (mounted) {
+                                                  setState(() {
+                                                    loading = false;
+                                                  });
+                                                  showAlertDialog(
+                                                    context,
+                                                    title: "Email Sent",
+                                                    error:
+                                                        "Kindly Check Your email and re-login to talkhost to reflect changes",
+                                                  );
+                                                }
+                                              });
+                                            },
+                                          ),
+                                        ],
+                                      );
+                                    }
+                                    if(User.status != "host"){
+                                      updateUserStatusToHost();
+                                    }
+                                    return const Text("Your Email is Verified");
+                                  }
+                                },
+                              ),
                             ),
                           ),
                         ],
                       ),
-                      const SizedBox(
-                        height: 20,
-                      ),
-                      Container(
-                        width: double.infinity,
-                        color: Colors.grey[400],
-                        padding: const EdgeInsets.symmetric(vertical: 5),
-                        child: Row(
-                          children: [
-                            const SizedBox(
-                              width: 10,
-                            ),
-                            const Text(
-                              "Personal Information",
-                              style: TextStyle(
-                                fontSize: 20,
-                              ),
-                            ),
-                            const SizedBox(
-                              width: 10,
-                            ),
-                            mouseButton(
-                              onPressed: () {
-                                setState(() {
-                                  visible = !visible;
-                                });
-                              },
-                              child: const CircleAvatar(
-                                radius: 20,
-                                child: Icon(Icons.edit),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      const SizedBox(
-                        height: 20,
-                      ),
-                      Wrap(
-                        spacing: 20.0,
-                        children: [
-                          editable(
-                              "Name",
-                              getEditProfileState(context: context)
-                                  .nameController,
-                              "Write your name here",
-                              4 * MediaQuery.of(context).size.width / 12,
-                              User.name),
-                          editable(
-                              "Phone Number",
-                              getEditProfileState(context: context)
-                                  .phoneNumberController,
-                              "Write your phone number here",
-                              4 * MediaQuery.of(context).size.width / 12,
-                              User.phoneNumber),
-                          editable(
-                              "Address",
-                              getEditProfileState(context: context)
-                                  .addressController,
-                              "Write your Address here",
-                              4 * MediaQuery.of(context).size.width / 12,
-                              User.address),
-                        ],
-                      ),
-                    ],
+                    ),
                   ),
                 ),
-              ),
+                (loading) ? const LoadingScreen() : Container(),
+              ],
             );
           },
         );

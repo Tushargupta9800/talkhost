@@ -11,7 +11,14 @@ class AuthState {
   static String? userEmail;
   static String errorString = "Some Error has been occurred please try again";
 
-  Future<bool> isUserSignedIn() async {
+  Future<bool> sendUserVerificationEmail() async {
+    await Firebase.initializeApp();
+    FirebaseAuth auth = FirebaseAuth.instance;
+    await auth.currentUser?.sendEmailVerification();
+    return true;
+  }
+
+  static Future<bool> isUserSignedIn() async {
 
     if(authStateDebugging){
       log("Inside BLoCandLogic/Authentication/auth_state/isUserSignedIn");
@@ -26,7 +33,7 @@ class AuthState {
     return true;
   }
 
-  Future<bool> isUserEmailVerified() async {
+  static Future<bool> isUserEmailVerified() async {
     if(authStateDebugging){
       log("Inside BLoCandLogic/Authentication/auth_state/isUserEmailVerified");
     }

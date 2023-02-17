@@ -4,6 +4,8 @@ import 'package:talkhost/Pages/OnBoardingPages/on_boarding_main.dart';
 import 'package:talkhost/Pages/OnBoardingPages/sign_in_page.dart';
 import 'package:talkhost/Pages/OnBoardingPages/sign_up_page.dart';
 
+import '../../Pages/DrawerPages/drawer.dart';
+
 part 'on_boarding_page_model.dart';
 
 class OnBoardingPageCubit extends Cubit<OnBoardingPageModel> {

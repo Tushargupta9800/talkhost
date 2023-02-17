@@ -24,7 +24,7 @@ class SignInPageCubit extends Cubit<SignInPageModel> {
       state.openDrawer(context);
     }
     else {
-      showAlertDialogOnAuthentication(context);
+      showAlertDialog(context);
     }
   }
 

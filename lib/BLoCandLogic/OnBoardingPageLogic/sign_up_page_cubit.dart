@@ -22,7 +22,7 @@ class SignUpPageCubit extends Cubit<SignUpPageModel>{
       state.openDrawer(context);
     }
     else {
-      showAlertDialogOnAuthentication(context);
+      showAlertDialog(context);
     }
   }
 

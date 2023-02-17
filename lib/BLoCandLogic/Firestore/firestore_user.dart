@@ -47,3 +47,8 @@ Future updateUserBannerPic({required String fileLink}) async {
   final docUser = FirebaseFirestore.instance.collection("users").doc(User.email);
   await docUser.update({"banner_pic" : fileLink});
 }
+
+Future updateUserStatusToHost() async {
+  final docUser = FirebaseFirestore.instance.collection("users").doc(User.email);
+  await docUser.update({"status": "host"});
+}

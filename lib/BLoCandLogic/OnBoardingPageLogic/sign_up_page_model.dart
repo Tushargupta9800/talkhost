@@ -33,7 +33,7 @@ class SignUpPageModel {
   bool passwordValidate(BuildContext context){
     String validate = passwordChecker(passwordController.text);
     if(validate.isEmpty) return true;
-    showAlertDialogOnAuthentication(context, error: validate);
+    showAlertDialog(context, error: validate);
     return false;
   }
 

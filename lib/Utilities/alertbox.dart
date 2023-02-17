@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:talkhost/BLoCandLogic/Authentication/auth_state.dart';
 import 'package:talkhost/Utilities/strings.dart';
 
-void showAlertDialogOnAuthentication(BuildContext context, {String? error, String? title}) {
+void showAlertDialog(BuildContext context, {String? error, String? title}) {
   showDialog(
     context: context,
     builder: (BuildContext context) {
