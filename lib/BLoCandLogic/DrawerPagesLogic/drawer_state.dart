@@ -3,9 +3,18 @@ part of 'drawer_cubit.dart';
 class DrawerState{
 
   static String _openedPageKey = drawerPageCreateMeetKey;
+  static bool loading = false;
 
   void changePage(String key){
     _openedPageKey = key;
+  }
+
+  void changeLoading(){
+    loading = !loading;
+  }
+
+  bool getLoadingStatus(){
+    return loading;
   }
 
   Widget drawerPageBodyOption(){

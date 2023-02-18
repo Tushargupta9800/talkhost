@@ -25,6 +25,7 @@ class AppBarUtil extends StatelessWidget {
             ],
           ),
           padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+          margin: const EdgeInsets.symmetric(horizontal: 30, vertical: 25),
           child: Text(
             title,
             style: const TextStyle(

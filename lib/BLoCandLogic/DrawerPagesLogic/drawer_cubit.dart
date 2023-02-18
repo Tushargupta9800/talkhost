@@ -22,4 +22,9 @@ class DrawerCubit extends Cubit<DrawerState> {
     emit(DrawerState());
   }
 
+  void changeLoadingStatus(){
+    state.changeLoading();
+    emit(DrawerState());
+  }
+
 }

@@ -15,7 +15,9 @@ class Post {
     required this.guests,
     required this.alreadyHadLink,
     required this.meetingId,
-    required this.meetingPassword
+    required this.meetingPassword,
+    required this.makePublic,
+    required this.registeredAttendees
   });
 
   Post.fromJson(dynamic json) {
@@ -49,15 +51,15 @@ class Post {
   late String hostImage;
   late String website;
   late bool notificationsOn;
-  late String startTime;
-  late String endTime;
+  late DateTime startTime;
+  late DateTime endTime;
   late List<String> attendees;
   late List<String> guests;
   late bool alreadyHadLink;
   late String meetingId;
   late String meetingPassword;
   late bool makePublic;
-  late List<String> registeredAttendees;
+  List<String> registeredAttendees = [];
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};

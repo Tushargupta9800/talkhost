@@ -1,4 +1,3 @@
-import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -24,7 +23,6 @@ bool firstTime = true;
 bool loading = false;
 
 class _EditProfileState extends State<EditProfile> {
-
   @override
   void dispose() {
     getEditProfileState(context: context).addressController.dispose();
@@ -236,26 +234,37 @@ class _EditProfileState extends State<EditProfile> {
                             spacing: 20.0,
                             children: [
                               editable(
-                                  "Name",
-                                  getEditProfileState(context: context)
-                                      .nameController,
-                                  "Write your name here",
-                                  4 * MediaQuery.of(context).size.width / 12,
-                                  User.name),
+                                "Name",
+                                getEditProfileState(context: context)
+                                    .nameController,
+                                "Write your name here",
+                                4 * MediaQuery.of(context).size.width / 12,
+                                User.name,
+                              ),
                               editable(
-                                  "Phone Number",
-                                  getEditProfileState(context: context)
-                                      .phoneNumberController,
-                                  "Write your phone number here",
-                                  4 * MediaQuery.of(context).size.width / 12,
-                                  User.phoneNumber),
+                                "Phone Number",
+                                getEditProfileState(context: context)
+                                    .phoneNumberController,
+                                "Write your phone number here",
+                                4 * MediaQuery.of(context).size.width / 12,
+                                User.phoneNumber,
+                              ),
                               editable(
-                                  "Address",
-                                  getEditProfileState(context: context)
-                                      .addressController,
-                                  "Write your Address here",
-                                  4 * MediaQuery.of(context).size.width / 12,
-                                  User.address),
+                                "Address",
+                                getEditProfileState(context: context)
+                                    .addressController,
+                                "Write your Address here",
+                                4 * MediaQuery.of(context).size.width / 12,
+                                User.address,
+                              ),
+                              editable(
+                                "Occupation",
+                                getEditProfileState(context: context)
+                                    .addressController,
+                                "Your Occupation",
+                                4 * MediaQuery.of(context).size.width / 12,
+                                User.occupation,
+                              ),
                             ],
                           ),
                           Padding(
@@ -311,8 +320,9 @@ class _EditProfileState extends State<EditProfile> {
                                         ],
                                       );
                                     }
-                                    if(User.status != "host"){
-                                      updateUserParticularInfo(value: "host", key: "status");
+                                    if (User.status != "host") {
+                                      updateUserParticularInfo(
+                                          value: "host", key: "status");
                                     }
                                     return const Text("Your Email is Verified");
                                   }
