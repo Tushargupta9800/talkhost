@@ -14,20 +14,25 @@ class CreateMeetState {
 
   String errorString = "";
   String? imageAddress;
+  DateTime startDate = DateTime.now();
+  DateTime endDate = DateTime.now().add(const Duration(hours: 1));
 
   CreateMeetState copyWith(CreateMeetState state) {
     return CreateMeetState.withParam(
-        agendaController: state.agendaController,
-        roomNameController: state.roomNameController,
-        userEmailController: state.userEmailController,
-        guestEmailController: state.guestEmailController,
-        meetingIdController: state.meetingIdController,
-        meetingPasswordController: state.meetingPasswordController,
-        notificationsOn: state.notificationsOn,
-        alreadyHaveMeetingLink: state.alreadyHaveMeetingLink,
-        makeTalkPublic: state.makeTalkPublic,
-        errorString: state.errorString,
-        imageAddress: state.imageAddress);
+      agendaController: state.agendaController,
+      roomNameController: state.roomNameController,
+      userEmailController: state.userEmailController,
+      guestEmailController: state.guestEmailController,
+      meetingIdController: state.meetingIdController,
+      meetingPasswordController: state.meetingPasswordController,
+      notificationsOn: state.notificationsOn,
+      alreadyHaveMeetingLink: state.alreadyHaveMeetingLink,
+      makeTalkPublic: state.makeTalkPublic,
+      errorString: state.errorString,
+      imageAddress: state.imageAddress,
+      startDate: state.startDate,
+      endDate: state.endDate,
+    );
   }
 
   CreateMeetState();
@@ -44,6 +49,8 @@ class CreateMeetState {
     required this.makeTalkPublic,
     required this.errorString,
     required this.imageAddress,
+    required this.startDate,
+    required this.endDate,
   });
 
   String getImageAddress() {
@@ -82,6 +89,16 @@ class CreateMeetState {
         return;
       }
     }
+
+    if (!startDate.isAfter(DateTime.now())) {
+      errorString = "Choose the Time after Today's Time";
+      return;
+    }
+
+    if (!endDate.isAfter(startDate)) {
+      errorString = "End Time Should be after Start Time";
+      return;
+    }
   }
 
   Future chooseImage(BuildContext context) async {
@@ -108,8 +125,8 @@ class CreateMeetState {
         hostImage: User.profilePic,
         website: User.website,
         notificationsOn: notificationsOn,
-        startTime: DateTime.now(),
-        endTime: DateTime.now(),
+        startTime: startDate,
+        endTime: endDate,
         attendees: userEmailController.text.getAllEmails(),
         guests: guestEmailController.text.getAllEmails(),
         alreadyHadLink: alreadyHaveMeetingLink,

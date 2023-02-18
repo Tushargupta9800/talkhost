@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:date_field/date_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:talkhost/BLoCandLogic/DrawerPagesLogic/create_meet_cubit.dart';
@@ -18,13 +19,14 @@ class CreateMeetPage extends StatefulWidget {
 }
 
 class _CreateMeetPageState extends State<CreateMeetPage> {
-  Widget editable(
-    String title,
-    TextEditingController controller,
-    String hintText,
-  ) {
+  Widget editable(String title,
+      TextEditingController controller,
+      String hintText,) {
     return SizedBox(
-      width: max(MediaQuery.of(context).size.width / 3, 250),
+      width: max(MediaQuery
+          .of(context)
+          .size
+          .width / 3, 250),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -50,7 +52,10 @@ class _CreateMeetPageState extends State<CreateMeetPage> {
       builder: (context, snapshot) {
         return Scaffold(
           body: Container(
-            height: MediaQuery.of(context).size.height,
+            height: MediaQuery
+                .of(context)
+                .size
+                .height,
             padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
             child: SingleChildScrollView(
               scrollDirection: Axis.vertical,
@@ -90,7 +95,7 @@ class _CreateMeetPageState extends State<CreateMeetPage> {
                     decoration: const InputDecoration(
                       border: OutlineInputBorder(),
                       hintText:
-                          "Enter the guest Emails Separated by commas Eg: abcd@gmail.com, xyz@gmail.com",
+                      "Enter the guest Emails Separated by commas Eg: abcd@gmail.com, xyz@gmail.com",
                     ),
                   ),
                   const SizedBox(
@@ -108,34 +113,106 @@ class _CreateMeetPageState extends State<CreateMeetPage> {
                     decoration: const InputDecoration(
                       border: OutlineInputBorder(),
                       hintText:
-                          "Enter the Attendees Emails Separated by commas Eg: abcd@gmail.com, xyz@gmail.com",
+                      "Enter the Attendees Emails Separated by commas Eg: abcd@gmail.com, xyz@gmail.com",
                     ),
                   ),
                   const SizedBox(
-                    height: 10,
+                    height: 5,
+                  ),
+                  Wrap(
+                    spacing: 40,
+                    children: [
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const Text("Start Time"),
+                          const SizedBox(
+                            height: 5,
+                          ),
+                          SizedBox(
+                            width: MediaQuery
+                                .of(context)
+                                .size
+                                .width / 3,
+                            child: DateTimeFormField(
+                              decoration: const InputDecoration(
+                                border: OutlineInputBorder(),
+                                hintText: "Start Time",
+                              ),
+                              firstDate:
+                              DateTime.now().add(const Duration(days: 0)),
+                              lastDate:
+                              DateTime.now().add(const Duration(days: 60)),
+                              initialDate:
+                              DateTime.now().add(const Duration(days: 0)),
+                              onDateSelected: (DateTime value) {
+                                getCreateMeetPageState(context: context)
+                                    .startDate = value;
+                              },
+                            ),
+                          ),
+                        ],
+                      ),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const Text("End Time"),
+                          const SizedBox(
+                            height: 5,
+                          ),
+                          SizedBox(
+                            width: MediaQuery
+                                .of(context)
+                                .size
+                                .width / 3,
+                            child: DateTimeFormField(
+                              decoration: const InputDecoration(
+                                border: OutlineInputBorder(),
+                                hintText: "End Time",
+                              ),
+                              firstDate:
+                              DateTime.now().add(const Duration(days: 0)),
+                              lastDate:
+                              DateTime.now().add(const Duration(days: 60)),
+                              initialDate:
+                              DateTime.now().add(const Duration(days: 0)),
+                              onDateSelected: (DateTime value) {
+                                getCreateMeetPageState(context: context)
+                                    .endDate = value;
+                              },
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                  const SizedBox(
+                    height: 5,
                   ),
                   mouseButton(
                     child: Row(
                       children: [
                         const Text("Choose the file to upload      "),
                         Image.network(
-                          (getCreateMeetPageState(context: context)
-                                      .getImageAddress() ==
-                                  "")
+                          (getCreateMeetPageState(
+                            context: context,
+                          ).getImageAddress() ==
+                              "")
                               ? imageTalkHostDrawerBackgroundKey
-                              : getCreateMeetPageState(context: context)
-                                  .getImageAddress(),
+                              : getCreateMeetPageState(
+                            context: context,
+                          ).getImageAddress(),
                           height: 40,
                           width: 40,
                         ),
-
                       ],
                     ),
-                    onPressed: () => getCreateMeetPageCubit(
-                      context: context,
-                    ).onChoosingImageFile(
-                      context,
-                    ),
+                    onPressed: () =>
+                        getCreateMeetPageCubit(
+                          context: context,
+                        ).onChoosingImageFile(
+                          context,
+                        ),
                   ),
                   Row(
                     children: [
@@ -150,24 +227,24 @@ class _CreateMeetPageState extends State<CreateMeetPage> {
                     ],
                   ),
                   (getCreateMeetPageState(context: context)
-                          .alreadyHaveMeetingLink)
+                      .alreadyHaveMeetingLink)
                       ? Wrap(
-                          spacing: 40.0,
-                          children: [
-                            editable(
-                              "Meeting Link",
-                              getCreateMeetPageState(context: context)
-                                  .meetingIdController,
-                              "zoom.us/.....",
-                            ),
-                            editable(
-                              "Meeting Password",
-                              getCreateMeetPageState(context: context)
-                                  .meetingPasswordController,
-                              "Password",
-                            ),
-                          ],
-                        )
+                    spacing: 40.0,
+                    children: [
+                      editable(
+                        "Meeting Link",
+                        getCreateMeetPageState(context: context)
+                            .meetingIdController,
+                        "zoom.us/.....",
+                      ),
+                      editable(
+                        "Meeting Password",
+                        getCreateMeetPageState(context: context)
+                            .meetingPasswordController,
+                        "Password",
+                      ),
+                    ],
+                  )
                       : Container(),
                   Row(
                     children: [
