@@ -1,51 +1,43 @@
 part of 'drawer_cubit.dart';
 
-class DrawerState{
-
-  static String _openedPageKey = drawerPageCreateMeetKey;
+class DrawerState {
+  static String _openedPageKey = (debugDrawerPagesEnabled)
+      ? drawerPageCreateMeetKey
+      : drawerPageDashBoardKey;
   static bool loading = false;
 
-  void changePage(String key){
+  void changePage(String key) {
     _openedPageKey = key;
   }
 
-  void changeLoading(){
+  void changeLoading() {
     loading = !loading;
   }
 
-  bool getLoadingStatus(){
+  bool getLoadingStatus() {
     return loading;
   }
 
-  Widget drawerPageBodyOption(){
-    if(_openedPageKey == drawerPageDashBoardKey){
+  Widget drawerPageBodyOption() {
+    if (_openedPageKey == drawerPageDashBoardKey) {
       return const DashBoardPage();
-    }
-    else if(_openedPageKey == drawerPageAboutKey){
+    } else if (_openedPageKey == drawerPageAboutKey) {
       return const AboutPage();
-    }
-    else if(_openedPageKey == drawerPageConferencesKey){
+    } else if (_openedPageKey == drawerPageConferencesKey) {
       return const ConferencesPage();
-    }
-    else if(_openedPageKey == drawerPageMessageKey){
+    } else if (_openedPageKey == drawerPageMessageKey) {
       return const MessagePage();
-    }
-    else if(_openedPageKey == drawerPageSearchPersonKey){
+    } else if (_openedPageKey == drawerPageSearchPersonKey) {
       return const SearchPersonPage();
-    }
-    else if(_openedPageKey == drawerPageCreateMeetKey){
+    } else if (_openedPageKey == drawerPageCreateMeetKey) {
       return const CreateMeetPage();
-    }
-    else if(_openedPageKey == drawerPageMyHostedMeetKey){
+    } else if (_openedPageKey == drawerPageMyHostedMeetKey) {
       return const MyMeetPage();
-    }
-    else if(_openedPageKey == drawerEditPageKey){
+    } else if (_openedPageKey == drawerEditPageKey) {
       return const EditProfile();
-    }
-    else if(_openedPageKey == drawerNotificationsPageKey){
+    } else if (_openedPageKey == drawerNotificationsPageKey) {
       return const NotificationsPage();
     }
     return const DashBoardPage();
   }
-
 }

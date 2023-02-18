@@ -99,6 +99,12 @@ class CreateMeetState {
       errorString = "End Time Should be after Start Time";
       return;
     }
+
+    if (alreadyHaveMeetingLink && meetingIdController.text.isEmpty) {
+      errorString =
+          "Add your meeting link or \nclose the have a meet link switch\nto auto create jisti meet link";
+      return;
+    }
   }
 
   Future chooseImage(BuildContext context) async {
