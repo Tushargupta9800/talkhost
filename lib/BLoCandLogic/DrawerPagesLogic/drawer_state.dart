@@ -2,7 +2,7 @@ part of 'drawer_cubit.dart';
 
 class DrawerState {
   static String _openedPageKey = (debugDrawerPagesEnabled)
-      ? drawerPageCreateMeetKey
+      ? drawerPageMyHostedMeetKey
       : drawerPageDashBoardKey;
   static bool loading = false;
 

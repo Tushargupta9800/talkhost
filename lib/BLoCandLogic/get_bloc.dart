@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:talkhost/BLoCandLogic/DrawerPagesLogic/create_meet_cubit.dart';
 import 'package:talkhost/BLoCandLogic/DrawerPagesLogic/drawer_cubit.dart';
 import 'package:talkhost/BLoCandLogic/DrawerPagesLogic/edit_profile_cubit.dart';
+import 'package:talkhost/BLoCandLogic/DrawerPagesLogic/my_hosted_meet_cubit.dart';
 import 'package:talkhost/BLoCandLogic/OnBoardingPageLogic/on_boarding_page_cubit.dart';
 import 'package:talkhost/BLoCandLogic/OnBoardingPageLogic/sign_in_page_cubit.dart';
 
@@ -53,4 +54,12 @@ CreateMeetCubit getCreateMeetPageCubit({required BuildContext context}){
 
 CreateMeetState getCreateMeetPageState({required BuildContext context}){
   return getCreateMeetPageCubit(context: context).state;
+}
+
+MyHostedMeetCubit getMyHostedMeetCubit({required BuildContext context}){
+  return BlocProvider.of<MyHostedMeetCubit>(context);
+}
+
+MyHostedMeetState getMyHostedMeetState({required BuildContext context}){
+  return getMyHostedMeetCubit(context: context).state;
 }

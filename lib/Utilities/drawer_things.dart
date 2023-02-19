@@ -87,9 +87,8 @@ class DrawerThings extends StatelessWidget {
     }
 
     return StreamBuilder<User>(
-        stream: readUser(User.email),
+        stream: readUser(thisUser.email),
         builder: (context, snapshot) {
-          if (!snapshot.hasData) {}
 
           return Container(
             color: ThemeD.primaryColor,
@@ -100,7 +99,7 @@ class DrawerThings extends StatelessWidget {
                 Stack(
                   children: [
                     Image.network(
-                      User.bannerPic,
+                      thisUser.bannerPic,
                       height: 180,
                       fit: BoxFit.fill,
                     ),
@@ -141,12 +140,12 @@ class DrawerThings extends StatelessWidget {
                               child: CircleAvatar(
                                 radius: 35,
                                 backgroundImage: NetworkImage(
-                                  User.profilePic,
+                                  thisUser.profilePic,
                                 ),
                               ),
                             ),
-                            display(User.name),
-                            display(User.email),
+                            display(thisUser.name),
+                            display(thisUser.email),
                           ],
                         ),
                       ),
@@ -172,7 +171,7 @@ class DrawerThings extends StatelessWidget {
                     scrollDirection: Axis.vertical,
                     child: Column(
                       children: [
-                        (User.status == "host")
+                        (thisUser.status == "host")
                             ? Column(
                                 children: hostDrawer.entries
                                     .map(

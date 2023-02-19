@@ -1,8 +1,11 @@
+import 'dart:developer';
+
 import '../Utilities/strings.dart';
 
 class User {
 
   User.fromJson(dynamic json) {
+    log(json);
     name = json['name'];
     email = json['email'];
     profilePic = json['profile_pic'];
@@ -14,17 +17,32 @@ class User {
     website = json['website'];
   }
 
-  static String name = "";
-  static String email = "";
-  static String profilePic = defaultUserProfileImage;
-  static String status = "user";
-  static String phoneNumber = "";
-  static String address = "";
-  static String bannerPic = imageTalkHostDrawerBackgroundKey;
-  static String occupation = "";
-  static String website = "";
+  User getDataFrommJson(dynamic json){
+    name = json['name'];
+    email = json['email'];
+    profilePic = json['profile_pic'];
+    status = json['status'];
+    phoneNumber = json['phone_number'];
+    address = json['address'];
+    bannerPic = json['banner_pic'];
+    occupation = json['occupation'];
+    website = json['website'];
+    return this;
+  }
 
-  static Map<String, dynamic> toJson() {
+  User();
+
+  String name = "";
+  String email = "";
+  String profilePic = defaultUserProfileImage;
+  String status = "user";
+  String phoneNumber = "";
+  String address = "";
+  String bannerPic = imageTalkHostDrawerBackgroundKey;
+  String occupation = "";
+  String website = "";
+
+  Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
     map['name'] = name;
     map['email'] = email;
@@ -38,3 +56,5 @@ class User {
     return map;
   }
 }
+
+User thisUser = User();

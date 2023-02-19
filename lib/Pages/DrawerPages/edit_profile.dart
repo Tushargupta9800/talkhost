@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:talkhost/BLoCandLogic/Authentication/auth_state.dart';
@@ -68,12 +67,12 @@ class _EditProfileState extends State<EditProfile> {
               ),
               (editVisibility)
                   ? mouseButton(
-                      onPressed: () => onTap(),
-                      child: const CircleAvatar(
-                        radius: 20,
-                        child: Icon(Icons.edit),
-                      ),
-                    )
+                onPressed: () => onTap(),
+                child: const CircleAvatar(
+                  radius: 20,
+                  child: Icon(Icons.edit),
+                ),
+              )
                   : Container(),
             ],
           ),
@@ -85,17 +84,16 @@ class _EditProfileState extends State<EditProfile> {
     );
   }
 
-  Widget editable(
-    String title,
-    TextEditingController controller,
-    String hintText,
-    double width,
-    String value,
-  ) {
+  Widget editable(String title,
+      TextEditingController controller,
+      String hintText,
+      double width,
+      String value,) {
     if (visible == false && firstTime == true) {
       firstTime = false;
       getEditProfileState(context: context)
-          .listen(User.name, User.phoneNumber, User.address);
+          .listen(thisUser.name, thisUser.phoneNumber, thisUser.address,
+        thisUser.occupation,);
     }
 
     return SizedBox(
@@ -106,18 +104,18 @@ class _EditProfileState extends State<EditProfile> {
           Text(title),
           (visible)
               ? Text(
-                  value,
-                  style: const TextStyle(
-                    overflow: TextOverflow.ellipsis,
-                  ),
-                )
+            value,
+            style: const TextStyle(
+              overflow: TextOverflow.ellipsis,
+            ),
+          )
               : TextFormField(
-                  controller: controller,
-                  decoration: InputDecoration(
-                    border: const OutlineInputBorder(),
-                    hintText: hintText,
-                  ),
-                ),
+            controller: controller,
+            decoration: InputDecoration(
+              border: const OutlineInputBorder(),
+              hintText: hintText,
+            ),
+          ),
         ],
       ),
     );
@@ -128,7 +126,7 @@ class _EditProfileState extends State<EditProfile> {
     return BlocBuilder<EditProfileCubit, EditProfileState>(
       builder: (context, state) {
         return StreamBuilder<User>(
-          stream: readUser(User.email),
+          stream: readUser(thisUser.email),
           builder: (context, snapshot) {
             if (!snapshot.hasData) {}
 
@@ -137,8 +135,14 @@ class _EditProfileState extends State<EditProfile> {
                 Scaffold(
                   body: Container(
                     color: Colors.grey[200],
-                    width: 4 * MediaQuery.of(context).size.width / 5,
-                    height: MediaQuery.of(context).size.height,
+                    width: 4 * MediaQuery
+                        .of(context)
+                        .size
+                        .width / 5,
+                    height: MediaQuery
+                        .of(context)
+                        .size
+                        .height,
                     child: SingleChildScrollView(
                       scrollDirection: Axis.vertical,
                       child: Column(
@@ -150,10 +154,13 @@ class _EditProfileState extends State<EditProfile> {
                                 child: Stack(
                                   children: [
                                     Image.network(
-                                      User.bannerPic,
+                                      thisUser.bannerPic,
                                       height: 250,
                                       width: 4 *
-                                          MediaQuery.of(context).size.width /
+                                          MediaQuery
+                                              .of(context)
+                                              .size
+                                              .width /
                                           5,
                                       fit: BoxFit.fill,
                                     ),
@@ -161,11 +168,12 @@ class _EditProfileState extends State<EditProfile> {
                                       bottom: 10,
                                       right: 15,
                                       child: mouseButton(
-                                        onPressed: () => getEditProfileState(
+                                        onPressed: () =>
+                                            getEditProfileState(
                                                 context: context)
-                                            .onClickEditBannerPicButton(
-                                          User.email,
-                                        ),
+                                                .onClickEditBannerPicButton(
+                                              thisUser.email,
+                                            ),
                                         child: const CircleAvatar(
                                           radius: 20,
                                           child: Icon(Icons.edit),
@@ -185,18 +193,19 @@ class _EditProfileState extends State<EditProfile> {
                                         CircleAvatar(
                                           radius: 80,
                                           backgroundImage: NetworkImage(
-                                            User.profilePic,
+                                            thisUser.profilePic,
                                           ),
                                         ),
                                         Positioned(
                                           bottom: 5,
                                           right: 5,
                                           child: mouseButton(
-                                            onPressed: () => getEditProfileState(
+                                            onPressed: () =>
+                                                getEditProfileState(
                                                     context: context)
-                                                .onClickEditProfilePicButton(
-                                              User.email,
-                                            ),
+                                                    .onClickEditProfilePicButton(
+                                                  thisUser.email,
+                                                ),
                                             child: const CircleAvatar(
                                               radius: 20,
                                               child: Icon(Icons.edit),
@@ -210,10 +219,10 @@ class _EditProfileState extends State<EditProfile> {
                                     ),
                                     Column(
                                       crossAxisAlignment:
-                                          CrossAxisAlignment.start,
+                                      CrossAxisAlignment.start,
                                       children: [
-                                        display(User.name),
-                                        display(User.email),
+                                        display(thisUser.name),
+                                        display(thisUser.email),
                                       ],
                                     )
                                   ],
@@ -223,7 +232,7 @@ class _EditProfileState extends State<EditProfile> {
                           ),
                           dividerBanner(
                             "Personal Information",
-                            () {
+                                () {
                               setState(() {
                                 visible = !visible;
                               });
@@ -238,32 +247,44 @@ class _EditProfileState extends State<EditProfile> {
                                 getEditProfileState(context: context)
                                     .nameController,
                                 "Write your name here",
-                                4 * MediaQuery.of(context).size.width / 12,
-                                User.name,
+                                4 * MediaQuery
+                                    .of(context)
+                                    .size
+                                    .width / 12,
+                                thisUser.name,
                               ),
                               editable(
                                 "Phone Number",
                                 getEditProfileState(context: context)
                                     .phoneNumberController,
                                 "Write your phone number here",
-                                4 * MediaQuery.of(context).size.width / 12,
-                                User.phoneNumber,
+                                4 * MediaQuery
+                                    .of(context)
+                                    .size
+                                    .width / 12,
+                                thisUser.phoneNumber,
                               ),
                               editable(
                                 "Address",
                                 getEditProfileState(context: context)
                                     .addressController,
                                 "Write your Address here",
-                                4 * MediaQuery.of(context).size.width / 12,
-                                User.address,
+                                4 * MediaQuery
+                                    .of(context)
+                                    .size
+                                    .width / 12,
+                                thisUser.address,
                               ),
                               editable(
                                 "Occupation",
                                 getEditProfileState(context: context)
-                                    .addressController,
+                                    .occupationController,
                                 "Your Occupation",
-                                4 * MediaQuery.of(context).size.width / 12,
-                                User.occupation,
+                                4 * MediaQuery
+                                    .of(context)
+                                    .size
+                                    .width / 12,
+                                thisUser.occupation,
                               ),
                             ],
                           ),
@@ -278,18 +299,18 @@ class _EditProfileState extends State<EditProfile> {
                                 future: AuthState.isUserEmailVerified(),
                                 builder: (context, snapshot) {
                                   if (snapshot.connectionState ==
-                                          ConnectionState.waiting ||
+                                      ConnectionState.waiting ||
                                       snapshot.hasError) {
                                     return const CircularProgressIndicator();
                                   } else {
                                     if (snapshot.data == false) {
                                       return Column(
                                         crossAxisAlignment:
-                                            CrossAxisAlignment.start,
+                                        CrossAxisAlignment.start,
                                         children: [
                                           dividerBanner(
                                             "Make me Host",
-                                            () {},
+                                                () {},
                                             false,
                                           ),
                                           mouseButton(
@@ -311,7 +332,7 @@ class _EditProfileState extends State<EditProfile> {
                                                     context,
                                                     title: "Email Sent",
                                                     error:
-                                                        "Kindly Check Your email and re-login to talkhost to reflect changes",
+                                                    "Kindly Check Your email and re-login to talkhost to reflect changes",
                                                   );
                                                 }
                                               });
@@ -320,7 +341,7 @@ class _EditProfileState extends State<EditProfile> {
                                         ],
                                       );
                                     }
-                                    if (User.status != "host") {
+                                    if (thisUser.status != "host") {
                                       updateUserParticularInfo(
                                           value: "host", key: "status");
                                     }

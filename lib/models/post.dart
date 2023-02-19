@@ -1,3 +1,4 @@
+
 class Post {
   Post({
     required this.agenda,
@@ -20,7 +21,7 @@ class Post {
     required this.registeredAttendees
   });
 
-  Post.fromJson(dynamic json) {
+  Post.fromJson(Map<String, dynamic> json) {
     agenda = json['agenda'];
     agendaBannerPic = json['agenda_banner_pic'];
     roomName = json['room_name'];
@@ -30,8 +31,8 @@ class Post {
     hostImage = json['host_image'];
     website = json['website'];
     notificationsOn = json['notifications_on'];
-    startTime = json['start_time'];
-    endTime = json['end_time'];
+    startTime =  json['start_time'].toDate();
+    endTime =  json['end_time'].toDate();
     attendees =
         json['attendees'] != null ? json['attendees'].cast<String>() : [];
     guests = json['guests'] != null ? json['guests'].cast<String>() : [];
@@ -82,5 +83,14 @@ class Post {
     map['make_talk_public'] = makePublic;
     map['registered_attendees'] = registeredAttendees;
     return map;
+  }
+
+  int compareToWithTime(Post b){
+    if(startTime == b.startTime){
+      if(endTime.isBefore(b.endTime)) return 0;
+      return 1;
+    }
+    if(startTime.isBefore(b.startTime)) return 0;
+    return 1;
   }
 }

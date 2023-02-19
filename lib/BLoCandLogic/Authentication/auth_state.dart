@@ -160,12 +160,12 @@ class AuthState {
     FirebaseAuth auth = FirebaseAuth.instance;
     auth.signOut();
     userEmail = user = null;
-    model.User.status = "user";
-    model.User.email = "";
-    model.User.name = "";
-    model.User.phoneNumber = "";
-    model.User.profilePic = defaultUserProfileImage;
-    model.User.bannerPic = imageTalkHostDrawerBackgroundKey;
+    model.thisUser.status = "user";
+    model.thisUser.email = "";
+    model.thisUser.name = "";
+    model.thisUser.phoneNumber = "";
+    model.thisUser.profilePic = defaultUserProfileImage;
+    model.thisUser.bannerPic = imageTalkHostDrawerBackgroundKey;
     errorString = defaultErrorLine;
   }
 

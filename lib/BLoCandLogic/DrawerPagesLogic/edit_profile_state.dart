@@ -4,11 +4,13 @@ class EditProfileState {
   final TextEditingController nameController = TextEditingController();
   final TextEditingController addressController = TextEditingController();
   final TextEditingController phoneNumberController = TextEditingController();
+  final TextEditingController occupationController = TextEditingController();
 
-  void listen(String name, String number, String address) {
+  void listen(String name, String number, String address, String occupation) {
     nameController.text = name;
     addressController.text = address;
     phoneNumberController.text = number;
+    occupationController.text = occupation;
 
     nameController.addListener(() {
       updateUserParticularInfo(
@@ -30,6 +32,12 @@ class EditProfileState {
           key: "phone_number",
         );
       }
+    });
+    occupationController.addListener(() {
+      updateUserParticularInfo(
+        value: occupationController.text,
+        key: "occupation",
+      );
     });
   }
 
