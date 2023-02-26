@@ -1,6 +1,6 @@
 # talkhost
 
-A new Flutter project.
+TalkHost is a software platform that helps event organizers to create events and manage the entire event process from registration to post-event follow-up. It provides features like custom registration forms, automated email notifications, mobile check-in, real-time analytics, and more. It is designed to help event professionals save time and increase attendance.
 
 ## Getting Started
 
