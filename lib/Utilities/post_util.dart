@@ -61,6 +61,7 @@ class PostUtil extends StatelessWidget {
           ),
           Image.network(
             post.agendaBannerPic,
+            width: double.infinity,
             fit: BoxFit.fitWidth,
           ),
           Text(

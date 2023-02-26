@@ -101,7 +101,8 @@ class DrawerThings extends StatelessWidget {
                     Image.network(
                       thisUser.bannerPic,
                       height: 180,
-                      fit: BoxFit.fill,
+                      width: width,
+                      fit: BoxFit.cover,
                     ),
                     Positioned(
                       right: 10,
