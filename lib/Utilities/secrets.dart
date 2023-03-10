@@ -1,3 +1,5 @@
+import 'package:flutter/material.dart';
+
 class Secrets{
   final String apiKey = "AIzaSyDLlGF9iTu4QKNh2uYf1P7FIGlINKH84IU";
   final String authDomain = "talkhost-3515b.firebaseapp.com";

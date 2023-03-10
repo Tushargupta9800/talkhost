@@ -8,6 +8,7 @@ import 'package:talkhost/BLoCandLogic/DrawerPagesLogic/my_hosted_meet_cubit.dart
 import 'package:talkhost/BLoCandLogic/OnBoardingPageLogic/on_boarding_page_cubit.dart';
 import 'package:talkhost/BLoCandLogic/OnBoardingPageLogic/sign_in_page_cubit.dart';
 import 'package:talkhost/BLoCandLogic/OnBoardingPageLogic/sign_up_page_cubit.dart';
+import 'package:talkhost/Pages/OnBoardingPages/on_boarding_page.dart';
 import 'package:talkhost/Utilities/routes.dart';
 import 'package:talkhost/Utilities/secrets.dart';
 import 'package:talkhost/Utilities/theme.dart';
@@ -53,8 +54,7 @@ class TalkHost extends StatelessWidget {
           primaryColor: ThemeD.primaryColor,
           primarySwatch: ThemeD.primaryMaterialColor
         ),
-        routes: routes,
-        initialRoute: "/",
+        home: const OnBoardingPage(),
       ),
     );
   }

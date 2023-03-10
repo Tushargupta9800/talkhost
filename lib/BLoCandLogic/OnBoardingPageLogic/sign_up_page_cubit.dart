@@ -4,6 +4,7 @@ import 'package:talkhost/BLoCandLogic/get_bloc.dart';
 
 import '../../Pages/DrawerPages/drawer.dart';
 import '../../Utilities/alertbox.dart';
+import '../../Utilities/routes.dart';
 import '../../Utilities/simple_functions.dart';
 import '../Authentication/auth_state.dart';
 
@@ -22,7 +23,7 @@ class SignUpPageCubit extends Cubit<SignUpPageModel>{
       state.openDrawer(context);
     }
     else {
-      showAlertDialog(context);
+      showAlertDialog(context,);
     }
   }
 

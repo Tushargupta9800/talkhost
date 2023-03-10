@@ -30,56 +30,55 @@ class SignInPageModel {
     );
   }
 
-  bool passwordValidate(BuildContext context){
+  bool passwordValidate(BuildContext context) {
     String validate = passwordChecker(passwordController.text);
-    if(validate.isEmpty) return true;
-    showAlertDialog(context, error: validate);
+    if (validate.isEmpty) return true;
+    showAlertDialog(context,error: validate);
     return false;
   }
 
   void forgetPassword(BuildContext context) async {
     AuthState state = AuthState();
-    getOnBoardingPageBloc(context: context).changeLoadingScreenVisibility();
     bool status = await state.sendPasswordResetEmail(emailController.text);
-    getOnBoardingPageBloc(context: context).changeLoadingScreenVisibility();
-    if(!status && context.mounted) {
-      showAlertDialog(context);
+    if (!status && context.mounted) {
+      showAlertDialog(context,);
     }
-    if(status && context.mounted) {
-      showAlertDialog(context, error: "Check your inbox", title: "Password change email has been sent.");
+    if (status && context.mounted) {
+      showAlertDialog(
+        context,
+        error: "Check your inbox",
+        title: "Password change email has been sent.",
+      );
     }
   }
 
   Future<bool> onPressedGoogleSignedIn(BuildContext context) async {
     AuthState authState = AuthState();
-    getOnBoardingPageBloc(context: context).changeLoadingScreenVisibility();
     bool loginStatus = await authState.letUserSignedInWithGoogle();
-    getOnBoardingPageBloc(context: context).changeLoadingScreenVisibility();
     return loginStatus;
   }
 
   Future<bool> onPressedLoginButton(
     BuildContext context,
   ) async {
-    if(signInDebuggingEnabled){
+    if (signInDebuggingEnabled) {
       emailController.text = debugUserId;
       passwordController.text = debugUserPassword;
     }
-    if(!passwordValidate(context)) return false;
+    if (!passwordValidate(context)) return false;
     AuthState authState = AuthState();
-    getOnBoardingPageBloc(context: context).changeLoadingScreenVisibility();
     bool loginStatus = await authState.letUserSignedInWithEmailAndPassword(
       emailController.text,
       passwordController.text,
     );
-    getOnBoardingPageBloc(context: context).changeLoadingScreenVisibility();
     return loginStatus;
   }
 
   void openDrawer(BuildContext context) {
-    Navigator.popAndPushNamed(
-      context,
-      DrawerPage.routeName,
+    navigateTo(
+      context: context,
+      route: DrawerPage.routeNamex,
+      enablePopAndPush: true,
     );
   }
 }

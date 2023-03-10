@@ -5,12 +5,13 @@ import 'package:talkhost/BLoCandLogic/DrawerPagesLogic/drawer_cubit.dart';
 import 'package:talkhost/BLoCandLogic/get_bloc.dart';
 import 'package:talkhost/Utilities/drawer_things.dart';
 import 'package:talkhost/Utilities/loding_screen.dart';
+import '../../Utilities/routes.dart';
 import '../OnBoardingPages/on_boarding_page.dart';
 
 class DrawerPage extends StatefulWidget {
   const DrawerPage({Key? key}) : super(key: key);
 
-  static String routeName = "/home";
+  static const String routeNamex = "/home";
 
   @override
   State<DrawerPage> createState() => _DrawerPageState();
@@ -33,8 +34,10 @@ class _DrawerPageState extends State<DrawerPage> {
                     onPressedExit: () {
                       AuthState state = AuthState();
                       state.logout();
-                      Navigator.of(context).popAndPushNamed(
-                        OnBoardingPage.routeName,
+                      navigateTo(
+                        context: context,
+                        route: OnBoardingPage.routeNamex,
+                        enablePopAndPush: true,
                       );
                     },
                   ),
