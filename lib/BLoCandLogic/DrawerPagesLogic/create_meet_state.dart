@@ -115,11 +115,16 @@ class CreateMeetState {
     imageAddress = await FirestoreImage.uploadImage(
       collectionWithPath: imageKey,
     );
-    log(imageAddress.toString());
     getDrawerPageCubit(context: context).changeLoadingStatus();
   }
 
   void clickOnSubmit(BuildContext context) {
+
+    String newMeetingId = meetingIdController.text;
+    if(newMeetingId.isEmpty){
+      newMeetingId = "".getMeetingId(10);
+    }
+
     getDrawerPageCubit(context: context).changeLoadingStatus();
     Post newPost = Post(
         agenda: agendaController.text,
@@ -136,7 +141,7 @@ class CreateMeetState {
         attendees: userEmailController.text.getAllEmails(),
         guests: guestEmailController.text.getAllEmails(),
         alreadyHadLink: alreadyHaveMeetingLink,
-        meetingId: meetingIdController.text,
+        meetingId: newMeetingId,
         meetingPassword: meetingPasswordController.text,
         makePublic: makeTalkPublic,
         registeredAttendees: []);

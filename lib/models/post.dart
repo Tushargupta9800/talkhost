@@ -86,6 +86,7 @@ class Post {
   }
 
   int compareToWithTime(Post b){
+
     if(startTime == b.startTime){
       if(endTime.isBefore(b.endTime)) return 0;
       return 1;
