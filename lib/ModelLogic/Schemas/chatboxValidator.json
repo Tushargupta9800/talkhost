@@ -1,0 +1,54 @@
+{
+    "$schema": "https://www.botframework.com/schemas/validator/v1.0/validator.schema",
+    "version": "1.0",
+    "validators": [
+      {
+        "$kind": "Microsoft.TextInput",
+        "id": "input",
+        "properties": {
+          "minLength": 1,
+          "maxLength": 256
+        }
+      },
+      {
+        "$kind": "Microsoft.RegexRecognizer",
+        "id": "regex",
+        "patterns": [
+          {
+            "pattern": "^(yes|no)$",
+            "intent": "Confirmation"
+          }
+        ]
+      },
+      {
+        "$kind": "Microsoft.LuisRecognizer",
+        "id": "luis",
+        "applicationId": "${ENV.APP_ID}",
+        "endpointKey": "${ENV.APP_KEY}",
+        "endpoint": "https://<YOUR_LUIS_REGION>.api.cognitive.microsoft.com"
+      },
+      {
+        "$kind": "Microsoft.PropertyAssignments",
+        "id": "properties",
+        "assignments": {
+          "dialog.$instance.input.value": "=turn.activity.text"
+        }
+      },
+      {
+        "$kind": "Microsoft.IfCondition",
+        "id": "if",
+        "condition": "equals(dialog.intent, 'None')",
+        "actions": [
+          {
+            "$kind": "Microsoft.AssignVariable",
+            "id": "assign",
+            "setValue": {
+              "property": "dialog.intent",
+              "value": "=recognize.luis"
+            }
+          }
+        ]
+      }
+    ]
+  }
+  
