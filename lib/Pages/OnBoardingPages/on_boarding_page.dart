@@ -4,11 +4,12 @@ import 'package:talkhost/BLoCandLogic/OnBoardingPageLogic/on_boarding_page_cubit
 import 'package:talkhost/BLoCandLogic/get_bloc.dart';
 import 'package:talkhost/Utilities/decorations.dart';
 import 'package:talkhost/Utilities/loding_screen.dart';
+import 'package:talkhost/Utilities/secrets.dart';
 
 class OnBoardingPage extends StatefulWidget {
   const OnBoardingPage({Key? key}) : super(key: key);
 
-  static String routeName = "/";
+  static const String routeNamex = "/";
 
   @override
   State<OnBoardingPage> createState() => _OnBoardingPageState();
@@ -93,9 +94,6 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
                   getOnBoardingPageBloc(context: context).getOnBoardingPage(),
                 ],
               ),
-              OnBoardingPageModel.loadingScreenVisibility
-                  ? const LoadingScreen()
-                  : Container(),
             ],
           ),
         );

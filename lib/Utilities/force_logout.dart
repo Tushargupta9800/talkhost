@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:talkhost/BLoCandLogic/Authentication/auth_state.dart';
 import 'package:talkhost/Pages/OnBoardingPages/on_boarding_page.dart';
+import 'package:talkhost/Utilities/routes.dart';
 
 class ForceLogout extends StatefulWidget {
   const ForceLogout({Key? key}) : super(key: key);
@@ -10,19 +11,16 @@ class ForceLogout extends StatefulWidget {
 }
 
 class _ForceLogoutState extends State<ForceLogout> {
-
   void forceLogout() async {
-
     AuthState state = AuthState();
     await state.logout().then((value) {
-      while(Navigator.canPop(context)) {
-        Navigator.of(context).pop();
-      }
-      Navigator.pushNamed(context, OnBoardingPage.routeName);
+      navigateTo(
+        context: context,
+        route: OnBoardingPage.routeNamex,
+        popThrough: true,
+      );
     });
-
   }
-
 
   @override
   void initState() {

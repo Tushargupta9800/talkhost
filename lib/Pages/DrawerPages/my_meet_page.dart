@@ -21,18 +21,19 @@ class MyMeetPage extends StatefulWidget {
 class _MyMeetPageState extends State<MyMeetPage> {
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<MyHostedMeetCubit, MyHostedMeetState>(
-      builder: (context, snapshot) {
-        return StreamBuilder<List<Post>>(
-          stream: MeetingHandler.getAllMyHostedMeets(
-            thisUser.email,
-          ),
-          builder: (context, postsData) {
-            int count = 0;
-            if (postsData.hasData) {
-              count = postsData.data!.length;
-              postsData.data!.sort((a, b) => a.compareToWithTime(b));
-            }
+    return StreamBuilder<List<Post>>(
+      stream: MeetingHandler.getAllMyHostedMeets(
+        thisUser.email,
+      ),
+      builder: (context, postsData) {
+        int count = 0;
+        if (postsData.hasData) {
+          count = postsData.data!.length;
+          postsData.data!.sort((a, b) => a.compareToWithTime(b));
+        }
+
+        return BlocBuilder<MyHostedMeetCubit, MyHostedMeetState>(
+          builder: (context, snapshot) {
             return Scaffold(
               body: Container(
                 padding:
@@ -48,7 +49,7 @@ class _MyMeetPageState extends State<MyMeetPage> {
                       const Center(
                         child: CircularProgressIndicator(),
                       )
-                    ] else if (!postsData.hasData) ...[
+                    ] else if (!postsData.hasData || postsData.data!.isEmpty) ...[
                       Image.network(
                         nothingFoundImageKey,
                         height: MediaQuery.of(context).size.height / 2,

@@ -7,6 +7,7 @@ import 'package:talkhost/Utilities/secrets.dart';
 import 'package:talkhost/Utilities/simple_functions.dart';
 
 import '../../Utilities/alertbox.dart';
+import '../../Utilities/routes.dart';
 import '../get_bloc.dart';
 
 part 'sign_in_page_model.dart';
@@ -24,7 +25,7 @@ class SignInPageCubit extends Cubit<SignInPageModel> {
       state.openDrawer(context);
     }
     else {
-      showAlertDialog(context);
+      showAlertDialog(context,);
     }
   }
 
@@ -38,7 +39,7 @@ class SignInPageCubit extends Cubit<SignInPageModel> {
 
   Future<bool> onPressedLoginButton(BuildContext context) async {
     bool loginStatus = await state.onPressedLoginButton(context);
-    if (context.mounted) {
+    if(context.mounted) {
       gotLoginStatus(loginStatus, context);
     }
     return loginStatus;

@@ -33,15 +33,13 @@ class SignUpPageModel {
   bool passwordValidate(BuildContext context){
     String validate = passwordChecker(passwordController.text);
     if(validate.isEmpty) return true;
-    showAlertDialog(context, error: validate);
+    showAlertDialog(context,error: validate);
     return false;
   }
 
   Future<bool> onPressedGoogleSignedIn(BuildContext context) async {
     AuthState authState = AuthState();
-    getOnBoardingPageBloc(context: context).changeLoadingScreenVisibility();
     bool loginStatus = await authState.letUserSignedInWithGoogle();
-    getOnBoardingPageBloc(context: context).changeLoadingScreenVisibility();
     return loginStatus;
   }
 
@@ -50,7 +48,6 @@ class SignUpPageModel {
   ) async {
     if(!passwordValidate(context)) return false;
     AuthState authState = AuthState();
-    getOnBoardingPageBloc(context: context).changeLoadingScreenVisibility();
     bool loginStatus = await authState.letUserSignedInWithEmailAndPassword(
       emailController.text,
       passwordController.text,
@@ -61,14 +58,14 @@ class SignUpPageModel {
         passwordController.text,
       );
     }
-    getOnBoardingPageBloc(context: context).changeLoadingScreenVisibility();
     return loginStatus;
   }
 
   void openDrawer(BuildContext context) {
-    Navigator.popAndPushNamed(
-      context,
-      DrawerPage.routeName,
+    navigateTo(
+      context: context,
+      route: DrawerPage.routeNamex,
+      enablePopAndPush: true,
     );
   }
 }

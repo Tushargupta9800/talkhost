@@ -58,6 +58,7 @@ class _CreateMeetPageState extends State<CreateMeetPage> {
                 .height,
             padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
             child: SingleChildScrollView(
+              primary: false,
               scrollDirection: Axis.vertical,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
