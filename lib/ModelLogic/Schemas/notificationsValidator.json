@@ -1,0 +1,23 @@
+{
+    "title": {
+      "type": "string",
+      "max": 50,
+      "required": true
+    },
+    "message": {
+      "type": "string",
+      "max": 200,
+      "required": true
+    },
+    "type": {
+      "type": "string",
+      "valid": ["info", "warning", "error"],
+      "required": true
+    },
+    "timestamp": {
+      "type": "date",
+      "iso": true,
+      "required": true
+    }
+}
+  
