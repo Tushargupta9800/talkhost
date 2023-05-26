@@ -1,0 +1,60 @@
+{
+    "indexes": [
+      {
+        "collectionGroup": "posts",
+        "queryScope": "COLLECTION",
+        "fields": [
+          {
+            "fieldPath": "host_email",
+            "order": "ASCENDING"
+          },
+          {
+            "fieldPath": "end_time",
+            "order": "ASCENDING"
+          }
+        ]
+      },
+      {
+        "collectionGroup": "posts",
+        "queryScope": "COLLECTION",
+        "fields": [
+          {
+            "fieldPath": "end_time",
+            "order": "ASCENDING"
+          },
+          {
+            "fieldPath": "guests",
+            "arrayConfig": "CONTAINS"
+          }
+        ]
+      },
+      {
+        "collectionGroup": "posts",
+        "queryScope": "COLLECTION",
+        "fields": [
+          {
+            "fieldPath": "invitations",
+            "arrayConfig": "CONTAINS"
+          },
+          {
+            "fieldPath": "end_time",
+            "order": "ASCENDING"
+          }
+        ]
+      },
+      {
+        "collectionGroup": "posts",
+        "queryScope": "COLLECTION",
+        "fields": [
+          {
+            "fieldPath": "make_talk_public",
+            "order": "ASCENDING"
+          },
+          {
+            "fieldPath": "end_time",
+            "order": "ASCENDING"
+          }
+        ]
+      }
+    ]
+  }
